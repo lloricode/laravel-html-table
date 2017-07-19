@@ -69,14 +69,20 @@ class LaravelHtmlTableGenerator
         private function _rows_data(array $data)
         {
                 $output = $this->_tags['body'];
+
+                $alt = 0;
                 foreach($data as $row1)
                 {
-                        $output .= $this->_tags['body_row'];
+                        $alter = ($alt%2===0)?'':'alt_';
+
+                        $output .= $this->_tags[$alter.'body_row'];
                         foreach($row1 as $row)
                         {
-                                $output .= $this->_tags['body_cell'].$row.$this->_tags['body_cell_end'];
+                                $output .= $this->_tags[$alter.'body_cell'].$row.$this->_tags['body_cell_end'];
                         }
                         $output .= $this->_tags['body_row_end'];
+
+                        $alt++;
                 }
                 return $output.$this->_tags['body_end'];
         }
