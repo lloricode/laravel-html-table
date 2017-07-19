@@ -47,6 +47,19 @@ $attributes = ['myclass'=>'test_val'];
 
 {{ Table::generateTable($headers, $data, $attributes) }}
 
+// Model way
+  
+     {!! Table::generateTableFromModel(
+         ['Name'],  // Column for table
+         'App\User' // Model
+         ,['name'], // Fields from model
+         1, // Pagination Limit, if 0 all will show
+         'border="1"' // Attributes sample js/css
+         ) !!}   
+
+    {{ Table::links() }} // Generat this when limit is not 0
+
+
  ```
 ## This is all default values html tags
 ```php

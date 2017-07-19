@@ -2,6 +2,9 @@
 
 namespace Lloricode\LaravelHtmlTable;
 
+use Illuminate\Database\Eloquent\Model;
+use App;
+
 class LaravelHtmlTableGenerator
 {
         
@@ -22,6 +25,15 @@ class LaravelHtmlTableGenerator
          * @type mixed
          */   
         private $_attributes;    
+        
+        /**
+         *
+         *      
+         *
+         *
+         * @type string
+         */   
+        private $_links;    
 
         
         /**
@@ -33,6 +45,7 @@ class LaravelHtmlTableGenerator
         public function __construct()
         {
                 $this->_tags = $this->_getDefaultTags();
+                $this->_links = NULL;
         }       
 
         
@@ -87,7 +100,29 @@ class LaravelHtmlTableGenerator
                 return $output.$this->_tags['body_end'];
         }
 
+        private function _rows_data_with_model($model, array $fields, $limit)
+        {
+                if($limit == 0)
+                {
+                        $objt = $model::all();
+                }
+                else{
+                        $objt = $model::paginate($limit);
+                        $this->_links = $objt->links();
+                }
+                $data=[];
 
+                foreach($objt as $r)
+                {
+                        $t=[];
+                        foreach($fields as $f)
+                        {
+                                $t[]=$r->$f;
+                        }
+                        $data[]=$t;
+                }
+                return $this->_rows_data($data);
+        }
         
         /**
          *
@@ -129,11 +164,18 @@ class LaravelHtmlTableGenerator
          * @return string a generated completed html table with data.
          * @author Lloric Mayuga Garcia <emorickfighter@gmail.com>
          */
-        private  function _generate(array $header,array $data = [])
+        private  function _generate(array $header, $model_or_array, $limit = NULL,array $fields = NULL)
         {
                 $output = $this->_generateOpenTag();
                 $output .= $this->_header($header);
-                $output .= $this->_rows_data($data);
+                if(is_array($model_or_array))
+                {
+                        $output .= $this->_rows_data($model_or_array);
+                }
+                elseif(is_string($model_or_array) && !is_null($fields)&& !is_null($limit))
+                {
+                        $output .= $this->_rows_data_with_model($model_or_array, $fields, $limit);
+                }
                 $this->_resetDefaultTags();
                 return $output.'</table>';
         }
@@ -199,6 +241,50 @@ class LaravelHtmlTableGenerator
                 $this->_checTagsFromAttrbutes();
                 return $this->_generate($header ,$data);
         }
+
+
+        
+        /**
+         *
+         * Generate a completed html table with header and data
+         *
+         *
+         * @param $attributes
+         * @param $data
+         * @param $header
+         * @return string
+         * @author Lloric Mayuga Garcia <emorickfighter@gmail.com>
+         */
+        public function generateTableFromModel($header, $model,array $fields, $limit, $attributes = [])
+        {
+                $this->_attributes = $attributes;
+                $this->_checTagsFromAttrbutes();
+                return $this->_generate($header, $model, $limit, $fields);
+        }
+
+         /**
+         *
+         * Generated links
+         *
+         *
+         * @return string
+         * @author Lloric Mayuga Garcia <emorickfighter@gmail.com>
+         */
+        public function links()
+        {
+                $links = $this->_links;
+                $this->_links = NULL;
+                return $links;
+        }
+
+
+         /**
+         *
+         * Reset Tags
+         *
+         *
+         * @author Lloric Mayuga Garcia <emorickfighter@gmail.com>
+         */
         private function _resetDefaultTags()
         {
                 $this->_tags = $this->_getDefaultTags();
