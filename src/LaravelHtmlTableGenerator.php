@@ -108,7 +108,7 @@ class LaravelHtmlTableGenerator
                         $return = $param;
                 }
                 return ( (strlen($return)>0) && !empty($return))
-                        ?(' '.$return):'';
+                        ?(' '.trim($return)):'';
         }
 
 
