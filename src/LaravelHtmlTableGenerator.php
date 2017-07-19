@@ -167,8 +167,8 @@ class LaravelHtmlTableGenerator
                                 // replay the valu from default key.
                                 if(array_key_exists($key,$this->_attributes))
                                 {
-                                        // $this->_tags[$key] = $this->_attributes[$key];
-                                        // unset($this->_attributes[$key]);
+                                        $this->_tags[$key] = $this->_attributes[$key];
+                                        unset($this->_attributes[$key]);
                                 }
                         }
                 }
