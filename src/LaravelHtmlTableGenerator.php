@@ -88,15 +88,15 @@ class LaravelHtmlTableGenerator
          * Convert attributes to string format.
          *
          *
-         * @return string
+         * @return mixed
          * @author Lloric Mayuga Garcia <emorickfighter@gmail.com>
          */
-        private function _attributeToString()
+        private function _attributeToString($param = '')
         {
                 $return = '';
-                if(is_array($this->_attributes))
+                if(is_array($param))
                 {
-                        foreach($this->_attributes as $key => $value)
+                        foreach($param as $key => $value)
                         {
                                 if(!array_key_exists($key,$this->_tags))
                                 {
@@ -105,7 +105,7 @@ class LaravelHtmlTableGenerator
                         }
                 }else
                 {
-                        $return = $this->_attributes;
+                        $return = $param;
                 }
                 return ( (strlen($return)>0) && !empty($return))
                         ?(' '.$return):'';
