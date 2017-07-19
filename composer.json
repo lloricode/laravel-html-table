@@ -1,0 +1,19 @@
+{
+    "name": "lloricode/laravel-html-table",
+    "description": "Html table generator for laravel",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lloric Mayuga Garcia",
+            "email": "emorickfighter@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Lloricode\\LaravelHtmlTable\\": "src/"
+        }
+    }
+}
