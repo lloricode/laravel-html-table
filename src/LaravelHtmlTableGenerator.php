@@ -134,6 +134,7 @@ class LaravelHtmlTableGenerator
                 $output = $this->_generateOpenTag();
                 $output .= $this->_header($header);
                 $output .= $this->_rows_data($data);
+                $this->_resetDefaultTags();
                 return $output.'</table>';
         }
 
@@ -198,7 +199,10 @@ class LaravelHtmlTableGenerator
                 $this->_checTagsFromAttrbutes();
                 return $this->_generate($header ,$data);
         }
-
+        private function _resetDefaultTags()
+        {
+                $this->_tags = $this->_getDefaultTags();
+        }
         /**
          *
          * Default html table tags.      
