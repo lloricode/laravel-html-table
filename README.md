@@ -4,7 +4,10 @@
 
 Generate Html Table with data from array/object.
 
-
+## Install via [composer](https://getcomposer.org/).
+```
+composer require lloricode/laravel-html-table
+```
 
 ## Provider
 ```php
