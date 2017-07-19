@@ -91,7 +91,7 @@ class LaravelHtmlTableGenerator
          * @return mixed
          * @author Lloric Mayuga Garcia <emorickfighter@gmail.com>
          */
-        private function _attributeToString($param = '')
+        private function _attributeToString($param)
         {
                 $return = '';
                 if(is_array($param))
@@ -144,7 +144,7 @@ class LaravelHtmlTableGenerator
         private function _generateOpenTag()
         {
                 $openTag = $this->_tags['table'];
-                return rtrim($openTag,'>'). $this->_attributeToString().'>';
+                return rtrim($openTag,'>'). $this->_attributeToString($this->_attributes).'>';
         }
 
         
