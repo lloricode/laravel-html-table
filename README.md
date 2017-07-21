@@ -93,10 +93,51 @@ $attributes = [
         'alt_body_cell_end'  => '</td>'
 ];
 
-{{ Table::generateTable($headers, $data, $attributes) }}
+{!! Table::generateTable($headers, $data, $attributes) !!}
 ```
 
 ## Sample Output
  ```
 <table myclass="test_val"><thead><tr><th>col1</th><th>col2</th></tr></thead><tbody><tr><td>Lloric</td><td>Garcia</td></tr><tr><td>Foo</td><td>Bar</td></tr><tr><td>Foo1</td><td>bar11</td></tr><tr><td>tst</td><td>tesss</td></tr></tbody></table>
  ```
+
+ ## Adding attributes in cell data
+ ```php
+$header = [ 'Date', 'Description', 'Amount' ];
+$datas = [
+        [
+                ['data'=>'1','scope'=>'row'],
+                'Mark',
+                'Otto'
+        ],
+        [
+                ['data'=>'2','scope'=>'row'],
+                'foo',
+                'varr'
+        ],
+];
+{!! Llorictable::generateTable($header,$datas,['class'=>'table']) !!}
+<table class="table">
+        <thead>
+                <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                </tr>
+        </thead>
+        <tbody>
+                <tr>
+                        <td scope="row">1</td>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                </tr>
+                <tr>
+                        <td scope="row">2</td>
+                        <td>foo</td>
+                        <td>varr</td>
+                </tr>
+        </tbody>
+</table>
+                                                
+ ```
+

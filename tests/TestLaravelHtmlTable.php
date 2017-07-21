@@ -282,4 +282,23 @@ class TestLaravelHtmlTable extends TestCase
                 $this->assertEquals($expected,$this->_table->generateTable($test_header, $test_data, $attributes));        
         }
         
+        public function testAddAttributesInCellData()
+        {
+                $header = [ 'Date', 'Description', 'Amount' ];
+                $datas = [
+                        [
+                                ['data'=>'1','scope'=>'row'],
+                                'Mark',
+                                'Otto'
+                        ],
+                        [
+                                ['data'=>'2','scope'=>'row'],
+                                'foo',
+                                'varr'
+                        ],
+                ];
+                $expected = '<table class="table"><thead><tr><th>Date</th><th>Description</th><th>Amount</th></tr></thead><tbody><tr><td scope="row">1</td><td>Mark</td><td>Otto</td></tr><tr><td scope="row">2</td><td>foo</td><td>varr</td></tr></tbody></table>';
+
+                $this->assertEquals($expected,$this->_table->generateTable($header,$datas,['class'=>'table'])); 
+        }
 }

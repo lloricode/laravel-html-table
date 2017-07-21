@@ -91,7 +91,23 @@ class LaravelHtmlTableGenerator
                         $output .= $this->_tags[$alter.'body_row'];
                         foreach($row1 as $row)
                         {
-                                $output .= $this->_tags[$alter.'body_cell'].$row.$this->_tags['body_cell_end'];
+                                
+                                if(is_array($row) && array_key_exists('data',$row))
+                                {
+                                        $data = $row['data'];
+                                        unset($row['data']);
+                                          
+                                        $tag = trim($this->_tags[$alter.'body_cell'],'>').$this->_attributeToString($row).'>';  
+                                }
+                                else
+                                {
+                                        $data   = $row;
+                                        $attrib = '';
+                                        $tag = $this->_tags[$alter.'body_cell'];
+                                }
+
+
+                                $output .= $tag.$data.$this->_tags['body_cell_end'];
                         }
                         $output .= $this->_tags['body_row_end'];
 
