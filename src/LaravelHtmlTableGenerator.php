@@ -91,23 +91,32 @@ class LaravelHtmlTableGenerator
                         $output .= $this->_tags[$alter.'body_row'];
                         foreach($row1 as $row)
                         {
-                                
+                                $body_cell_tag_close = $this->_tags['body_cell_end'];
                                 if(is_array($row) && array_key_exists('data',$row))
                                 {
                                         $data = $row['data'];
                                         unset($row['data']);
                                           
-                                        $tag = trim($this->_tags[$alter.'body_cell'],'>').$this->_attributeToString($row).'>';  
+                                        if(isset($row['body_cell_tags']))
+                                        {
+                                                $body_cell_tag = $row['body_cell_tags'];
+                                                $body_cell_tag_open = $body_cell_tag['open'];
+                                                $body_cell_tag_close = $body_cell_tag['close'];
+                                        }
+                                        else
+                                        {
+                                                $body_cell_tag_open = trim($this->_tags[$alter.'body_cell'],'>').$this->_attributeToString($row).'>';  
+                                        }
                                 }
                                 else
                                 {
                                         $data   = $row;
                                         $attrib = '';
-                                        $tag = $this->_tags[$alter.'body_cell'];
+                                        $body_cell_tag_open = $this->_tags[$alter.'body_cell'];
                                 }
 
 
-                                $output .= $tag.$data.$this->_tags['body_cell_end'];
+                                $output .= $body_cell_tag_open.$data.$body_cell_tag_close;
                         }
                         $output .= $this->_tags['body_row_end'];
 
