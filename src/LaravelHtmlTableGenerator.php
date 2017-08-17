@@ -215,7 +215,7 @@ class LaravelHtmlTableGenerator
 
                 if(!is_null($this->_caption))
                 {
-                        $output .= "$output<caption>{$this->_caption}</caption>";
+                        $output .= "<caption>{$this->_caption}</caption>";
                 }
                 
                 $output .= $this->_header($header);
