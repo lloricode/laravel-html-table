@@ -74,11 +74,6 @@ class LaravelHtmlTableGenerator
         {
                 $output = $this->_tags['head'];
 
-                if(!is_null($this->_caption))
-                {
-                        $output = "$output<caption>{$this->_caption}</caption>";
-                }
-                
                 $output .= $this->_tags['head_row'];
 
                 foreach($header as $row)
@@ -217,6 +212,12 @@ class LaravelHtmlTableGenerator
         private  function _generate(array $header, $model_or_array, $limit = NULL,array $fields = NULL)
         {
                 $output = $this->_generateOpenTag();
+
+                if(!is_null($this->_caption))
+                {
+                        $output .= "$output<caption>{$this->_caption}</caption>";
+                }
+                
                 $output .= $this->_header($header);
                 if(is_array($model_or_array))
                 {
