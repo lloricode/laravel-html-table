@@ -33,7 +33,18 @@ class LaravelHtmlTableGenerator
          *
          * @type string
          */   
-        private $_links;    
+         private $_links;    
+   
+        /**
+         *
+         *      
+         *
+         *
+         * @type string
+         */   
+         private $_caption;    
+         
+
 
         
         /**
@@ -48,6 +59,7 @@ class LaravelHtmlTableGenerator
                 $this->_links = NULL;
         }       
 
+
         
         /**
          *
@@ -61,6 +73,12 @@ class LaravelHtmlTableGenerator
         private function _header(array $header)
         {
                 $output = $this->_tags['head'].$this->_tags['head_row'];
+
+                if(!is_null($this->_caption))
+                {
+                        $output = "$output<caption>{$this->_caption}</caption>";
+                }
+
                 foreach($header as $row)
                 {
                         $output .= $this->_tags['head_cell'].$row.$this->_tags['head_cell_end'];
@@ -68,6 +86,11 @@ class LaravelHtmlTableGenerator
                 return $output.$this->_tags['head_row_end'].$this->_tags['head_end'];
         }
 
+
+        private function _setCaption($caption)
+        {
+                $this->_caption = $caption;
+        }
         
         
         /**
@@ -260,8 +283,10 @@ class LaravelHtmlTableGenerator
          * @return string
          * @author Lloric Mayuga Garcia <emorickfighter@gmail.com>
          */
-        public function generateTable($header, $data = [],$attributes = [])
+        public function generateTable($header, $data = [],$attributes = [], $caption = null)
         {
+                $this->_setCaption($caption);
+
                 $this->_attributes = $attributes;
                 $this->_checTagsFromAttrbutes();
                 return $this->_generate($header ,$data);
@@ -280,8 +305,10 @@ class LaravelHtmlTableGenerator
          * @return string
          * @author Lloric Mayuga Garcia <emorickfighter@gmail.com>
          */
-        public function generateTableFromModel($header, $model,array $fields, $limit, $attributes = [])
+        public function generateTableFromModel($header, $model,array $fields, $limit, $attributes = [], $caption = null)
         {
+                $this->_setCaption($caption);
+                
                 $this->_attributes = $attributes;
                 $this->_checTagsFromAttrbutes();
                 return $this->_generate($header, $model, $limit, $fields);
