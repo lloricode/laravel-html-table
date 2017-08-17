@@ -72,12 +72,14 @@ class LaravelHtmlTableGenerator
          */
         private function _header(array $header)
         {
-                $output = $this->_tags['head'].$this->_tags['head_row'];
+                $output = $this->_tags['head'];
 
                 if(!is_null($this->_caption))
                 {
                         $output = "$output<caption>{$this->_caption}</caption>";
                 }
+                
+                $output .= $this->_tags['head_row'];
 
                 foreach($header as $row)
                 {
