@@ -12,13 +12,13 @@ composer require lloricode/laravel-html-table
 
 composer require lloricode/laravel-html-table dev-master 
 ```
-
-## Provider
+## on laravel <= 5.4 you need add provider, while in laravel 5.5 it already in autoload
+### Provider
 ```php
 Lloricode\LaravelHtmlTable\LaravelHtmlTableProvider::class,
 ```
 
-## Aliase
+### Aliase
 ```php
  'Table'=>  Lloricode\LaravelHtmlTable\LaravelHtmlTableFacade::class,
  ```
