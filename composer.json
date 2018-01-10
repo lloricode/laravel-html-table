@@ -10,7 +10,19 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {},
+    "require": {
+       
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Lloricode\\LaravelHtmlTable\\LaravelHtmlTableProvider"
+            ],
+            "aliases": {
+                "Table": "Lloricode\\LaravelHtmlTable\\LaravelHtmlTableFacade"
+            }
+        }
+    },
     "autoload": {
         "psr-4": {
             "Lloricode\\LaravelHtmlTable\\": "src/"
