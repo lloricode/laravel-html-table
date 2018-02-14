@@ -148,5 +148,5 @@ $datas = [
 
 # Feel free to use, you can send issue,request, and suggest.
 
-Best regrads. :)
+Best regards. :)
 
