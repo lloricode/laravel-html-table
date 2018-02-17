@@ -288,6 +288,22 @@ class LaravelHtmlTableGenerator
          */
         public function generateTable($header, $data = [],$attributes = [], $caption = null)
         {
+                return $this->generate($header, $data, $attributes, $caption);
+        }
+
+        /**
+         *
+         * Generate a completed html table with header and data
+         *
+         *
+         * @param $attributes
+         * @param $data
+         * @param $header
+         * @return string
+         * @author Lloric Mayuga Garcia <lloricode@gmail.com>
+         */
+        public function generate($header, $data = [],$attributes = [], $caption = null)
+        {
                 $this->_setCaption($caption);
 
                 $this->_attributes = $attributes;
@@ -309,6 +325,23 @@ class LaravelHtmlTableGenerator
          * @author Lloric Mayuga Garcia <lloricode@gmail.com>
          */
         public function generateTableFromModel($header, $model,array $fields, $limit, $attributes = [], $caption = null)
+        {
+                $this->generateModel($header, $model, $fields, $limit, $attributes, $caption);
+        }
+
+        
+        /**
+         *
+         * Generate a completed html table with header and data
+         *
+         *
+         * @param $attributes
+         * @param $data
+         * @param $header
+         * @return string
+         * @author Lloric Mayuga Garcia <lloricode@gmail.com>
+         */
+        public function generateModel($header, $model,array $fields, $limit, $attributes = [], $caption = null)
         {
                 $this->_setCaption($caption);
                 

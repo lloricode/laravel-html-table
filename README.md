@@ -47,13 +47,13 @@ $attributes = 'class="table"';
 // Or
 $attributes = ['myclass'=>'test_val'];
 
-{!! Table::generateTable($headers, $data) !!}
+{!! Table::generate($headers, $data) !!}
 
-{!! Table::generateTable($headers, $data, $attributes) !!}
+{!! Table::generate($headers, $data, $attributes) !!}
 
 // Model way
   
-     {!! Table::generateTableFromModel(
+     {!! Table::generateModel(
          ['Name'],  // Column for table
          'App\User' // Model
          ,['name'], // Fields from model
@@ -97,7 +97,7 @@ $attributes = [
         'alt_body_cell_end'  => '</td>'
 ];
 
-{!! Table::generateTable($headers, $data, $attributes) !!}
+{!! Table::generate($headers, $data, $attributes) !!}
 ```
 
 ## Sample Output
@@ -120,7 +120,7 @@ $datas = [
                 'varr'
         ],
 ];
-{!! Llorictable::generateTable($header,$datas,['class'=>'table']) !!}
+{!! Llorictable::generate($header,$datas,['class'=>'table']) !!}
 <table class="table">
         <thead>
                 <tr>
