@@ -16,8 +16,6 @@ class LaravelHtmlTableGenerator extends Generator
         public function __construct()
         {
                 parent::__construct();
-                $this->_tags = $this->_getDefaultTags();
-                $this->_links = NULL;
         }       
 
         /**
@@ -31,13 +29,13 @@ class LaravelHtmlTableGenerator extends Generator
          * @return string
          * @author Lloric Mayuga Garcia <lloricode@gmail.com>
          */
-        public function generate($header, $data = [],$attributes = [], $caption = null)
+        public function generate(array $header, $data = [],$attributes = [], $caption = null)
         {
-                $this->_setCaption($caption);
+                $this->setCaption($caption);
 
-                $this->_attributes = $attributes;
-                $this->_checTagsFromAttrbutes();
-                return $this->_generate($header ,$data);
+                $this->attributes = $attributes;
+                $this->checTagsFromAttrbutes();
+                return $this->execute($header ,$data);
         }
         
         /**
@@ -51,13 +49,13 @@ class LaravelHtmlTableGenerator extends Generator
          * @return string
          * @author Lloric Mayuga Garcia <lloricode@gmail.com>
          */
-        public function generateModel($header, $model,array $fields, $limit, $attributes = [], $caption = null)
+        public function generateModel(array $header, $model, array $fields, $limit, $attributes = [], $caption = null)
         {
-                $this->_setCaption($caption);
+                $this->setCaption($caption);
                 
-                $this->_attributes = $attributes;
-                $this->_checTagsFromAttrbutes();
-                return $this->_generate($header, $model, $limit, $fields);
+                $this->attributes = $attributes;
+                $this->checTagsFromAttrbutes();
+                return $this->execute($header, $model, $limit, $fields);
         }
 
          /**
@@ -70,8 +68,8 @@ class LaravelHtmlTableGenerator extends Generator
          */
         public function links()
         {
-                $links = $this->_links;
-                $this->_links = NULL;
+                $links = $this->links;
+                $this->links = NULL;
                 return $links;
         }
      

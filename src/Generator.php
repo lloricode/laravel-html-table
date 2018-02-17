@@ -71,21 +71,21 @@ class Generator
          */
         protected function _header(array $header)
         {
-                $output = $this->_tags['head'];
+                $output = $this->tags['head'];
 
-                $output .= $this->_tags['head_row'];
+                $output .= $this->tags['head_row'];
 
                 foreach($header as $row)
                 {
-                        $output .= $this->_tags['head_cell'].$row.$this->_tags['head_cell_end'];
+                        $output .= $this->tags['head_cell'].$row.$this->tags['head_cell_end'];
                 }
-                return $output.$this->_tags['head_row_end'].$this->_tags['head_end'];
+                return $output.$this->tags['head_row_end'].$this->tags['head_end'];
         }
 
 
-        protected function _setCaption($caption)
+        protected function setCaption($caption)
         {
-                $this->_caption = $caption;
+                $this->caption = $caption;
         }
         
         
@@ -100,48 +100,48 @@ class Generator
          */
         protected function _rows_data(array $data)
         {
-                $output = $this->_tags['body'];
+                $output = $this->tags['body'];
 
                 $alt = 0;
                 foreach($data as $row1)
                 {
                         $alter = ($alt%2===0)?'':'alt_';
 
-                        $output .= $this->_tags[$alter.'body_row'];
+                        $output .= $this->tags[$alter.'body_row'];
                         foreach($row1 as $row)
                         {
-                                $body_cell_tag_close = $this->_tags['body_cell_end'];
+                                $body_cell_tag_close = $this->tags['body_cell_end'];
                                 if(is_array($row) && array_key_exists('data',$row))
                                 {
                                         $data = $row['data'];
                                         unset($row['data']);
                                           
-                                        if(isset($row['body_cell_tags']))
+                                        if(isset($row['body_celltags']))
                                         {
-                                                $body_cell_tag = $row['body_cell_tags'];
+                                                $body_cell_tag = $row['body_celltags'];
                                                 $body_cell_tag_open = $body_cell_tag['open'];
                                                 $body_cell_tag_close = $body_cell_tag['close'];
                                         }
                                         else
                                         {
-                                                $body_cell_tag_open = trim($this->_tags[$alter.'body_cell'],'>').$this->_attributeToString($row).'>';  
+                                                $body_cell_tag_open = trim($this->tags[$alter.'body_cell'],'>').$this->_attributeToString($row).'>';  
                                         }
                                 }
                                 else
                                 {
                                         $data   = $row;
                                         $attrib = '';
-                                        $body_cell_tag_open = $this->_tags[$alter.'body_cell'];
+                                        $body_cell_tag_open = $this->tags[$alter.'body_cell'];
                                 }
 
 
                                 $output .= $body_cell_tag_open.$data.$body_cell_tag_close;
                         }
-                        $output .= $this->_tags['body_row_end'];
+                        $output .= $this->tags['body_row_end'];
 
                         $alt++;
                 }
-                return $output.$this->_tags['body_end'];
+                return $output.$this->tags['body_end'];
         }
 
         protected function _rows_data_with_model($model, array $fields, $limit)
@@ -152,7 +152,7 @@ class Generator
                 }
                 else{
                         $objt = $model::paginate($limit);
-                        $this->_links = $objt->links();
+                        $this->links = $objt->links();
                 }
                 $data=[];
 
@@ -183,7 +183,7 @@ class Generator
                 {
                         foreach($param as $key => $value)
                         {
-                                if(!array_key_exists($key,$this->_tags))
+                                if(!array_key_exists($key,$this->tags))
                                 {
                                         $return .= $this->_attributeToString("$key=\"$value\"");
                                 }
@@ -208,13 +208,13 @@ class Generator
          * @return string a generated completed html table with data.
          * @author Lloric Mayuga Garcia <lloricode@gmail.com>
          */
-        protected  function _generate(array $header, $model_or_array, $limit = NULL,array $fields = NULL)
+        protected  function execute(array $header, $model_or_array, $limit = NULL,array $fields = NULL)
         {
-                $output = $this->_generateOpenTag();
+                $output = $this->generateOpenTag();
 
-                if(!is_null($this->_caption))
+                if(!is_null($this->caption))
                 {
-                        $output .= "<caption>{$this->_caption}</caption>";
+                        $output .= "<caption>{$this->caption}</caption>";
                 }
                 
                 $output .= $this->_header($header);
@@ -240,34 +240,34 @@ class Generator
          * @return string 
          * @author Lloric Mayuga Garcia <lloricode@gmail.com>
          */
-        protected function _generateOpenTag()
+        protected function generateOpenTag()
         {
-                $openTag = $this->_tags['table'];
-                return rtrim($openTag,'>'). $this->_attributeToString($this->_attributes).'>';
+                $openTag = $this->tags['table'];
+                return rtrim($openTag,'>'). $this->_attributeToString($this->attributes).'>';
         }
 
         
         /**
          *
          * Override default tags,
-         * with on existed keys on array $this->_tags.
+         * with on existed keys on array $this->tags.
          *
          *
          * @author Lloric Mayuga Garcia <lloricode@gmail.com>
          */
-        protected function _checTagsFromAttrbutes()
+        protected function checTagsFromAttrbutes()
         {
-                if(is_array($this->_attributes))
+                if(is_array($this->attributes))
                 {
                         // Get all keys
-                        foreach(array_keys($this->_tags) as $key)
+                        foreach(array_keys($this->tags) as $key)
                         {
                                 // if default key exist in attribute given by user,
                                 // replay the valu from default key.
-                                if(array_key_exists($key,$this->_attributes))
+                                if(array_key_exists($key,$this->attributes))
                                 {
-                                        $this->_tags[$key] = $this->_attributes[$key];
-                                        unset($this->_attributes[$key]);
+                                        $this->tags[$key] = $this->attributes[$key];
+                                        unset($this->attributes[$key]);
                                 }
                         }
                 }
@@ -282,7 +282,7 @@ class Generator
          */
         protected function _resetDefaultTags()
         {
-                $this->_tags = $this->_getDefaultTags();
+                $this->tags = $this->_getDefaultTags();
         }
         /**
          *
