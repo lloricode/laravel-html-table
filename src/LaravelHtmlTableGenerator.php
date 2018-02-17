@@ -20,6 +20,26 @@ class LaravelHtmlTableGenerator extends Generator
 
         /**
          *
+         * Set Link options on model generate
+         *
+         *
+         * @param $label
+         * @param $options
+         * @return LaravelHtmlTableGenerator
+         * @author Lloric Mayuga Garcia <lloricode@gmail.com>
+         */
+        public function optionLinks($label = 'Option', $options = null)
+        {
+                $this->optionLinks =[
+                        'label' => $label,
+                        'options' => $options, 
+                ];
+
+                return $this;
+        }
+
+        /**
+         *
          * Generate a completed html table with header and data
          *
          *

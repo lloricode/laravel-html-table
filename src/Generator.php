@@ -44,6 +44,15 @@ class Generator
          * @type string
          */   
 	protected $caption; 
+
+        /**
+         *
+         *      
+         *
+         *
+         * @type optionLinks
+         */   
+	protected $optionLinks; 
 		 
 		 
 	/**
@@ -55,7 +64,8 @@ class Generator
         public function __construct()
         {
                 $this->tags = $this->_getDefaultTags();
-                $this->links = NULL;
+		$this->links = NULL;
+		$this->optionLinks = null;
         }       
 
 
