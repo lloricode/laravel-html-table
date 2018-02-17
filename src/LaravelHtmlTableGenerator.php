@@ -68,7 +68,7 @@ class LaravelHtmlTableGenerator
          *
          * @param array $header
          * @return string
-         * @author Lloric Mayuga Garcia <emorickfighter@gmail.com>
+         * @author Lloric Mayuga Garcia <lloricode@gmail.com>
          */
         private function _header(array $header)
         {
@@ -97,7 +97,7 @@ class LaravelHtmlTableGenerator
          *
          * @param array $data
          * @return string
-         * @author Lloric Mayuga Garcia <emorickfighter@gmail.com>
+         * @author Lloric Mayuga Garcia <lloricode@gmail.com>
          */
         private function _rows_data(array $data)
         {
@@ -175,7 +175,7 @@ class LaravelHtmlTableGenerator
          *
          *
          * @return mixed
-         * @author Lloric Mayuga Garcia <emorickfighter@gmail.com>
+         * @author Lloric Mayuga Garcia <lloricode@gmail.com>
          */
         private function _attributeToString($param)
         {
@@ -207,7 +207,7 @@ class LaravelHtmlTableGenerator
          * @param array $header
          * @param array $data
          * @return string a generated completed html table with data.
-         * @author Lloric Mayuga Garcia <emorickfighter@gmail.com>
+         * @author Lloric Mayuga Garcia <lloricode@gmail.com>
          */
         private  function _generate(array $header, $model_or_array, $limit = NULL,array $fields = NULL)
         {
@@ -239,7 +239,7 @@ class LaravelHtmlTableGenerator
          *
          *
          * @return string 
-         * @author Lloric Mayuga Garcia <emorickfighter@gmail.com>
+         * @author Lloric Mayuga Garcia <lloricode@gmail.com>
          */
         private function _generateOpenTag()
         {
@@ -254,7 +254,7 @@ class LaravelHtmlTableGenerator
          * with on existed keys on array $this->_tags.
          *
          *
-         * @author Lloric Mayuga Garcia <emorickfighter@gmail.com>
+         * @author Lloric Mayuga Garcia <lloricode@gmail.com>
          */
         private function _checTagsFromAttrbutes()
         {
@@ -284,7 +284,7 @@ class LaravelHtmlTableGenerator
          * @param $data
          * @param $header
          * @return string
-         * @author Lloric Mayuga Garcia <emorickfighter@gmail.com>
+         * @author Lloric Mayuga Garcia <lloricode@gmail.com>
          */
         public function generateTable($header, $data = [],$attributes = [], $caption = null)
         {
@@ -306,7 +306,7 @@ class LaravelHtmlTableGenerator
          * @param $data
          * @param $header
          * @return string
-         * @author Lloric Mayuga Garcia <emorickfighter@gmail.com>
+         * @author Lloric Mayuga Garcia <lloricode@gmail.com>
          */
         public function generateTableFromModel($header, $model,array $fields, $limit, $attributes = [], $caption = null)
         {
@@ -323,7 +323,7 @@ class LaravelHtmlTableGenerator
          *
          *
          * @return string
-         * @author Lloric Mayuga Garcia <emorickfighter@gmail.com>
+         * @author Lloric Mayuga Garcia <lloricode@gmail.com>
          */
         public function links()
         {
@@ -338,7 +338,7 @@ class LaravelHtmlTableGenerator
          * Reset Tags
          *
          *
-         * @author Lloric Mayuga Garcia <emorickfighter@gmail.com>
+         * @author Lloric Mayuga Garcia <lloricode@gmail.com>
          */
         private function _resetDefaultTags()
         {
@@ -350,7 +350,7 @@ class LaravelHtmlTableGenerator
          *
          *
          * @return array
-         * @author Lloric Mayuga Garcia <emorickfighter@gmail.com>
+         * @author Lloric Mayuga Garcia <lloricode@gmail.com>
          */
         private function _getDefaultTags()
         {
