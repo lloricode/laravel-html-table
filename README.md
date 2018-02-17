@@ -52,14 +52,14 @@ $attributes = ['myclass'=>'test_val'];
 {!! Table::generate($headers, $data, $attributes) !!}
 
 // Model way
-  
-     {!! Table::generateModel(
-         ['Name'],  // Column for table
-         'App\User' // Model
-         ,['name'], // Fields from model
-         1, // Pagination Limit, if 0 all will show
-         'border="1"' // Attributes sample js/css
-         ) !!}   
+   
+   {!! Table::generateModel(
+        ['Id', 'Name', 'Email'],  // Column for table
+        'App\User' // Model
+        ,['id', 'name', 'email'], // Fields from model
+        0, // Pagination Limit, if 0 all will show
+        'border="1"' // Attributes sample js/css
+        ) !!}    
 
     {{ Table::links() }} // Generat this when limit is not 0
 
