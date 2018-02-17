@@ -1,21 +1,7 @@
 <?php
 
-declare(strict_types=1);
-namespace Lloricode\LaravelHtmlTable\Tests;
-require_once('src/LaravelHtmlTableGenerator.php');
-use PHPUnit\Framework\TestCase;
-use Lloricode\LaravelHtmlTable\LaravelHtmlTableGenerator;
-
-
-class TestLaravelHtmlTable extends TestCase
+class TestLaravelHtmlTable extends \Tests\BaseTest
 {
-        private $_table;
-
-        public function setUp()
-        {
-                 $this->_table = new LaravelHtmlTableGenerator;
-        }
-
         public function testHtmlOutputWithNoAttibutes()
         {
                 $test_header = [
@@ -40,7 +26,7 @@ class TestLaravelHtmlTable extends TestCase
                 $expected = '<table><thead><tr><th>col1</th><th>col2</th></tr></thead><tbody><tr><td>Lloric</td><td>Garcia</td></tr><tr><td>Foo</td><td>Bar</td></tr><tr><td>Foo1</td><td>bar11</td></tr><tr><td>tst</td><td>tesss</td></tr></tbody></table>';
                 
                 
-                $this->assertEquals($expected,$this->_table->generateTable($test_header, $test_data));        
+                $this->assertEquals($expected,$this->table->generateTable($test_header, $test_data));        
         }
 
         public function testHtmlOutputWithAttibutesAltCells()
@@ -75,7 +61,7 @@ class TestLaravelHtmlTable extends TestCase
                 $expected = '<table><thead><tr><th>col1</th><th>col2</th></tr></thead><tbody><tr><td style="background-color:yellow">Lloric</td><td style="background-color:yellow">Garcia</td></tr><tr><td style="background-color:blue">Foo</td><td style="background-color:blue">Bar</td></tr><tr><td style="background-color:yellow">Foo1</td><td style="background-color:yellow">bar11</td></tr><tr><td style="background-color:blue">tst</td><td style="background-color:blue">tesss</td></tr></tbody></table>';
                 
                 
-                $this->assertEquals($expected,$this->_table->generateTable($test_header, $test_data, $attributes));        
+                $this->assertEquals($expected,$this->table->generateTable($test_header, $test_data, $attributes));        
         }
 
         public function testHtmlOutputWithAttibutesArray()
@@ -104,7 +90,7 @@ class TestLaravelHtmlTable extends TestCase
                 $attributes = ['myclass'=>'test_val'];
 
                 
-                $this->assertEquals($expected,$this->_table->generateTable($test_header, $test_data, $attributes));        
+                $this->assertEquals($expected,$this->table->generateTable($test_header, $test_data, $attributes));        
         }
 
         public function testHtmlOutputWithAttibutesString()
@@ -133,7 +119,7 @@ class TestLaravelHtmlTable extends TestCase
                 $attributes = 'myclass="test_val"';
 
                 
-                $this->assertEquals($expected,$this->_table->generateTable($test_header, $test_data, $attributes));        
+                $this->assertEquals($expected,$this->table->generateTable($test_header, $test_data, $attributes));        
         }
 
         public function testHtmlOutputWithModifyDefaultTagsWithSameValue()
@@ -190,7 +176,7 @@ class TestLaravelHtmlTable extends TestCase
                 ];
 
                 
-                $this->assertEquals($expected,$this->_table->generateTable($test_header, $test_data, $attributes));        
+                $this->assertEquals($expected,$this->table->generateTable($test_header, $test_data, $attributes));        
         }
         public function testHtmlOutputWithModifyDefaultTagsWithOnlyTableOpenModified()
         {
@@ -218,7 +204,7 @@ class TestLaravelHtmlTable extends TestCase
                 $attributes = [ 'table' => '<table class="class_value">' ];
 
                 
-                $this->assertEquals($expected,$this->_table->generateTable($test_header, $test_data, $attributes));        
+                $this->assertEquals($expected,$this->table->generateTable($test_header, $test_data, $attributes));        
         }
 
         public function testHtmlOutputWithModifyDefaultTagsWithOnlyHeaderCellsModified()
@@ -247,7 +233,7 @@ class TestLaravelHtmlTable extends TestCase
                 $attributes = [ 'head_cell' => '<th class="class_header">' ];
 
                 
-                $this->assertEquals($expected,$this->_table->generateTable($test_header, $test_data, $attributes));        
+                $this->assertEquals($expected,$this->table->generateTable($test_header, $test_data, $attributes));        
         }
 
         public function testHtmlOutputWithModifyDefaultTagsWithOpenTableAndHeaderCells()
@@ -279,7 +265,7 @@ class TestLaravelHtmlTable extends TestCase
                         ];
 
                 
-                $this->assertEquals($expected,$this->_table->generateTable($test_header, $test_data, $attributes));        
+                $this->assertEquals($expected,$this->table->generateTable($test_header, $test_data, $attributes));        
         }
         
         public function testAddAttributesInCellData()
@@ -299,6 +285,6 @@ class TestLaravelHtmlTable extends TestCase
                 ];
                 $expected = '<table class="table"><thead><tr><th>Date</th><th>Description</th><th>Amount</th></tr></thead><tbody><tr><td scope="row">1</td><td>Mark</td><td>Otto</td></tr><tr><td scope="row">2</td><td>foo</td><td>varr</td></tr></tbody></table>';
 
-                $this->assertEquals($expected,$this->_table->generateTable($header,$datas,['class'=>'table'])); 
+                $this->assertEquals($expected,$this->table->generateTable($header,$datas,['class'=>'table'])); 
         }
 }

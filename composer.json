@@ -27,5 +27,17 @@
         "psr-4": {
             "Lloricode\\LaravelHtmlTable\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "orchestra/testbench": "~3.0",
+        "phpunit/phpunit": "^7.1"
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit"
     }
 }
