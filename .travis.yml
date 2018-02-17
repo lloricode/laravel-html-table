@@ -2,7 +2,8 @@ language: php
 
 php:
   - '7.1'
+  - '7.2'
 
 before_script: 
- - composer require --dev phpunit/phpunit ^6.1
-script: phpunit
+ - composer install
+script: composer test

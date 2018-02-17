@@ -10,16 +10,16 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {
-       
+    "require": {       
+        "php": ">=7.0"
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Lloricode\\LaravelHtmlTable\\LaravelHtmlTableProvider"
+                "Lloricode\\LaravelHtmlTable\\Providers\\LaravelHtmlTableProvider"
             ],
             "aliases": {
-                "Table": "Lloricode\\LaravelHtmlTable\\LaravelHtmlTableFacade"
+                "Table": "Lloricode\\LaravelHtmlTable\\Facades\\LaravelHtmlTableFacade"
             }
         }
     },
@@ -27,5 +27,17 @@
         "psr-4": {
             "Lloricode\\LaravelHtmlTable\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "orchestra/testbench": "~3.0",
+        "phpunit/phpunit": "^7.1"
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit"
     }
 }

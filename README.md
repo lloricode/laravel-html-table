@@ -8,19 +8,16 @@ Generate Html Table with data from array/object.
 ```
 composer require lloricode/laravel-html-table
 
-# OR
-
-composer require lloricode/laravel-html-table dev-master 
 ```
 ## on laravel <= 5.4 you need add provider, while in laravel 5.5 it already in autoload
 ### Provider
 ```php
-Lloricode\LaravelHtmlTable\LaravelHtmlTableProvider::class,
+Lloricode\LaravelHtmlTable\Providers\LaravelHtmlTableProvider::class,
 ```
 
 ### Aliase
 ```php
- 'Table'=>  Lloricode\LaravelHtmlTable\LaravelHtmlTableFacade::class,
+ 'Table'=>  Lloricode\LaravelHtmlTable\Facades\LaravelHtmlTableFacade::class,
  ```
 
 ## Sample in view.
@@ -47,22 +44,41 @@ $attributes = 'class="table"';
 // Or
 $attributes = ['myclass'=>'test_val'];
 
-{{ Table::generateTable($headers, $data) }}
+{!! Table::generate($headers, $data) !!}
 
-{{ Table::generateTable($headers, $data, $attributes) }}
+{!! Table::generate($headers, $data, $attributes) !!}
 
 // Model way
-  
-     {!! Table::generateTableFromModel(
-         ['Name'],  // Column for table
-         'App\User' // Model
-         ,['name'], // Fields from model
-         1, // Pagination Limit, if 0 all will show
-         'border="1"' // Attributes sample js/css
-         ) !!}   
+   
+   {!! Table::generateModel(
+        ['Id', 'Name', 'Email'],  // Column for table
+        'App\User' // Model
+        ,['id', 'name', 'email'], // Fields from model
+        0, // Pagination Limit, if 0 all will show
+        'border="1"' // Attributes sample js/css
+        ) !!}    
 
     {{ Table::links() }} // Generat this when limit is not 0
 
+
+// then you can add a links
+
+    {!! Table::optionLinks('my.route.name')->generateModel(
+        ['Id', 'Name', 'Email'],  // Column for table
+        'App\User' // Model
+        ,['id', 'name', 'email'], // Fields from model
+        5, // Pagination Limit, if 0 all will show
+        'border="1"' // Attributes sample js/css
+        ) !!}   
+// you can specify more args
+// 1st route name, 2nd heder label, and 3rd is the every row label
+  {!! Table::optionLinks('my.route.name', 'my option', 'view')->generateModel(
+        ['Id', 'Name', 'Email'],  // Column for table
+        'App\User' // Model
+        ,['id', 'name', 'email'], // Fields from model
+        5, // Pagination Limit, if 0 all will show
+        'border="1"' // Attributes sample js/css
+        ) !!}   
 
  ```
 ## This is all default values html tags
@@ -97,7 +113,7 @@ $attributes = [
         'alt_body_cell_end'  => '</td>'
 ];
 
-{!! Table::generateTable($headers, $data, $attributes) !!}
+{!! Table::generate($headers, $data, $attributes) !!}
 ```
 
 ## Sample Output
@@ -120,7 +136,7 @@ $datas = [
                 'varr'
         ],
 ];
-{!! Llorictable::generateTable($header,$datas,['class'=>'table']) !!}
+{!! Table::generate($header, $datas, ['class'=>'table']) !!}
 <table class="table">
         <thead>
                 <tr>
