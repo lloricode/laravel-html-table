@@ -64,6 +64,25 @@ $attributes = ['myclass'=>'test_val'];
     {{ Table::links() }} // Generat this when limit is not 0
 
 
+// then you can add a links
+
+    {!! Table::optionLinks('my.route.name')->generateModel(
+        ['Id', 'Name', 'Email'],  // Column for table
+        'App\User' // Model
+        ,['id', 'name', 'email'], // Fields from model
+        5, // Pagination Limit, if 0 all will show
+        'border="1"' // Attributes sample js/css
+        ) !!}   
+// you can specify more args
+// 1st route name, 2nd heder label, and 3rd is the every row label
+  {!! Table::optionLinks('my.route.name', 'my option', 'view')->generateModel(
+        ['Id', 'Name', 'Email'],  // Column for table
+        'App\User' // Model
+        ,['id', 'name', 'email'], // Fields from model
+        5, // Pagination Limit, if 0 all will show
+        'border="1"' // Attributes sample js/css
+        ) !!}   
+
  ```
 ## This is all default values html tags
 ```php

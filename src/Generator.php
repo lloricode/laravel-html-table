@@ -79,7 +79,7 @@ class Generator
          * @return string
          * @author Lloric Mayuga Garcia <lloricode@gmail.com>
          */
-        protected function _header(array $header)
+        private function _header(array $header)
         {
                 $output = $this->tags['head'];
 
@@ -88,7 +88,13 @@ class Generator
                 foreach($header as $row)
                 {
                         $output .= $this->tags['head_cell'].$row.$this->tags['head_cell_end'];
-                }
+		}
+		
+		if(!is_null($this->optionLinks))
+		{
+                        $output .= $this->tags['head_cell'].$this->optionLinks['headerLabel'].$this->tags['head_cell_end'];
+		}
+
                 return $output.$this->tags['head_row_end'].$this->tags['head_end'];
         }
 
@@ -108,7 +114,7 @@ class Generator
          * @return string
          * @author Lloric Mayuga Garcia <lloricode@gmail.com>
          */
-        protected function _rows_data(array $data)
+        private function _rows_data(array $data)
         {
                 $output = $this->tags['body'];
 
@@ -154,29 +160,48 @@ class Generator
                 return $output.$this->tags['body_end'];
         }
 
-        protected function _rows_data_with_model($model, array $fields, $limit)
+        private function _rows_data_with_model($model, array $fields, $limit)
         {
                 if($limit == 0)
                 {
-                        $objt = $model::all();
+                        $objt = $model::select($fields)->get();
                 }
                 else{
-                        $objt = $model::paginate($limit);
+                        $objt = $model::select($fields)->paginate($limit);
                         $this->links = $objt->links();
                 }
                 $data=[];
-
                 foreach($objt as $r)
                 {
                         $t=[];
                         foreach($fields as $f)
                         {
-                                $t[]=$r->$f;
-                        }
-                        $data[]=$t;
+                                $t[]=$r[$f];
+			}
+			
+			if(!is_null($this->optionLinks))
+			{
+				$t[] = $this->_optionLinks($r);
+			}
+
+			$data[]=$t;
                 }
                 return $this->_rows_data($data);
-        }
+	}
+	
+	private function _optionLinks($model)
+	{
+		$link = route($this->optionLinks['routerName'], $model->{$model->getRouteKeyName()});
+		$label = null;
+		if(!is_null($this->optionLinks['rowLabel']))
+		{
+			$label = $this->optionLinks['rowLabel'];
+		}
+		else{
+			$label = 'a';
+		}
+		return "<a href=\"$link\">$label</a>";
+	}
         
         /**
          *
@@ -186,7 +211,7 @@ class Generator
          * @return mixed
          * @author Lloric Mayuga Garcia <lloricode@gmail.com>
          */
-        protected function _attributeToString($param)
+        private function _attributeToString($param)
         {
                 $return = '';
                 if(is_array($param))
@@ -218,7 +243,7 @@ class Generator
          * @return string a generated completed html table with data.
          * @author Lloric Mayuga Garcia <lloricode@gmail.com>
          */
-        protected  function execute(array $header, $model_or_array, $limit = NULL,array $fields = NULL)
+        protected function execute(array $header, $model_or_array, $limit = NULL,array $fields = NULL)
         {
                 $output = $this->generateOpenTag();
 
@@ -235,9 +260,11 @@ class Generator
                 elseif(is_string($model_or_array) && !is_null($fields)&& !is_null($limit))
                 {
                         $output .= $this->_rows_data_with_model($model_or_array, $fields, $limit);
-                }
+		}
+		
                 $this->_resetDefaultTags();
-                return $output.'</table>';
+                $this->optionLinks = null;
+                return $output . $this->tags['table_end'];
         }
 
         
@@ -290,7 +317,7 @@ class Generator
          *
          * @author Lloric Mayuga Garcia <lloricode@gmail.com>
          */
-        protected function _resetDefaultTags()
+        private function _resetDefaultTags()
         {
                 $this->tags = $this->_getDefaultTags();
         }
@@ -302,7 +329,7 @@ class Generator
          * @return array
          * @author Lloric Mayuga Garcia <lloricode@gmail.com>
          */
-        protected function _getDefaultTags()
+        private function _getDefaultTags()
         {
                 return [
                         // Main Table

@@ -28,11 +28,12 @@ class LaravelHtmlTableGenerator extends Generator
          * @return LaravelHtmlTableGenerator
          * @author Lloric Mayuga Garcia <lloricode@gmail.com>
          */
-        public function optionLinks($label = 'Option', $options = null)
+        public function optionLinks($routerName, $headerLabel = 'Option', $rowLabel = null)
         {
-                $this->optionLinks =[
-                        'label' => $label,
-                        'options' => $options, 
+                $this->optionLinks = [
+                        'routerName' => $routerName,
+                        'headerLabel' => $headerLabel,
+                        'rowLabel' => $rowLabel, 
                 ];
 
                 return $this;
