@@ -326,7 +326,7 @@ class LaravelHtmlTableGenerator
          */
         public function generateTableFromModel($header, $model,array $fields, $limit, $attributes = [], $caption = null)
         {
-                $this->generateModel($header, $model, $fields, $limit, $attributes, $caption);
+                return $this->generateModel($header, $model, $fields, $limit, $attributes, $caption);
         }
 
         

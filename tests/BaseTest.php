@@ -6,12 +6,12 @@ namespace Tests;
 
 use Lloricode\LaravelHtmlTable\LaravelHtmlTableGenerator;
 
-use PHPUnit\Framework\TestCase;
+// use PHPUnit\Framework\TestCase;
 
-class BaseTest extends TestCase
+class BaseTest extends \Orchestra\Testbench\TestCase
 {
     protected $table;
-    
+
     public function setUp()
     {
         parent::setUp();

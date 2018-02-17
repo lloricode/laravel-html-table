@@ -2,7 +2,7 @@
 
 class TestModel extends \Tests\BaseTest
 {
-        public function testHtmlOutputWithNoAttibutes()
+        public function testGenerateModel()
         {
                 $this->assertTrue(true);
                 // $test_header = [
@@ -27,6 +27,6 @@ class TestModel extends \Tests\BaseTest
                 // $expected = '<table><thead><tr><th>col1</th><th>col2</th></tr></thead><tbody><tr><td>Lloric</td><td>Garcia</td></tr><tr><td>Foo</td><td>Bar</td></tr><tr><td>Foo1</td><td>bar11</td></tr><tr><td>tst</td><td>tesss</td></tr></tbody></table>';
                 
                 
-                // $this->assertEquals($expected,$this->table->generateTable($test_header, $test_data));        
+                // $this->assertEquals($expected,$this->table->generate($test_header, $test_data));        
         }
 }
