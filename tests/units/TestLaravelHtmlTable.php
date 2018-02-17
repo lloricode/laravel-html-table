@@ -26,7 +26,7 @@ class TestLaravelHtmlTable extends \Tests\BaseTest
                 $expected = '<table><thead><tr><th>col1</th><th>col2</th></tr></thead><tbody><tr><td>Lloric</td><td>Garcia</td></tr><tr><td>Foo</td><td>Bar</td></tr><tr><td>Foo1</td><td>bar11</td></tr><tr><td>tst</td><td>tesss</td></tr></tbody></table>';
                 
                 
-                $this->assertEquals($expected,$this->table->generate($test_header, $test_data));        
+                $this->assertEquals($expected, Table::generate($test_header, $test_data));        
         }
 
         public function testHtmlOutputWithAttibutesAltCells()
@@ -61,7 +61,7 @@ class TestLaravelHtmlTable extends \Tests\BaseTest
                 $expected = '<table><thead><tr><th>col1</th><th>col2</th></tr></thead><tbody><tr><td style="background-color:yellow">Lloric</td><td style="background-color:yellow">Garcia</td></tr><tr><td style="background-color:blue">Foo</td><td style="background-color:blue">Bar</td></tr><tr><td style="background-color:yellow">Foo1</td><td style="background-color:yellow">bar11</td></tr><tr><td style="background-color:blue">tst</td><td style="background-color:blue">tesss</td></tr></tbody></table>';
                 
                 
-                $this->assertEquals($expected,$this->table->generate($test_header, $test_data, $attributes));        
+                $this->assertEquals($expected, Table::generate($test_header, $test_data, $attributes));        
         }
 
         public function testHtmlOutputWithAttibutesArray()
@@ -90,7 +90,7 @@ class TestLaravelHtmlTable extends \Tests\BaseTest
                 $attributes = ['myclass'=>'test_val'];
 
                 
-                $this->assertEquals($expected,$this->table->generate($test_header, $test_data, $attributes));        
+                $this->assertEquals($expected, Table::generate($test_header, $test_data, $attributes));        
         }
 
         public function testHtmlOutputWithAttibutesString()
@@ -119,7 +119,7 @@ class TestLaravelHtmlTable extends \Tests\BaseTest
                 $attributes = 'myclass="test_val"';
 
                 
-                $this->assertEquals($expected,$this->table->generate($test_header, $test_data, $attributes));        
+                $this->assertEquals($expected, Table::generate($test_header, $test_data, $attributes));        
         }
 
         public function testHtmlOutputWithModifyDefaultTagsWithSameValue()
@@ -176,7 +176,7 @@ class TestLaravelHtmlTable extends \Tests\BaseTest
                 ];
 
                 
-                $this->assertEquals($expected,$this->table->generate($test_header, $test_data, $attributes));        
+                $this->assertEquals($expected, Table::generate($test_header, $test_data, $attributes));        
         }
         public function testHtmlOutputWithModifyDefaultTagsWithOnlyTableOpenModified()
         {
@@ -204,7 +204,7 @@ class TestLaravelHtmlTable extends \Tests\BaseTest
                 $attributes = [ 'table' => '<table class="class_value">' ];
 
                 
-                $this->assertEquals($expected,$this->table->generate($test_header, $test_data, $attributes));        
+                $this->assertEquals($expected, Table::generate($test_header, $test_data, $attributes));        
         }
 
         public function testHtmlOutputWithModifyDefaultTagsWithOnlyHeaderCellsModified()
@@ -233,7 +233,7 @@ class TestLaravelHtmlTable extends \Tests\BaseTest
                 $attributes = [ 'head_cell' => '<th class="class_header">' ];
 
                 
-                $this->assertEquals($expected,$this->table->generate($test_header, $test_data, $attributes));        
+                $this->assertEquals($expected, Table::generate($test_header, $test_data, $attributes));        
         }
 
         public function testHtmlOutputWithModifyDefaultTagsWithOpenTableAndHeaderCells()
@@ -265,7 +265,7 @@ class TestLaravelHtmlTable extends \Tests\BaseTest
                         ];
 
                 
-                $this->assertEquals($expected,$this->table->generate($test_header, $test_data, $attributes));        
+                $this->assertEquals($expected, Table::generate($test_header, $test_data, $attributes));        
         }
         
         public function testAddAttributesInCellData()
@@ -285,6 +285,6 @@ class TestLaravelHtmlTable extends \Tests\BaseTest
                 ];
                 $expected = '<table class="table"><thead><tr><th>Date</th><th>Description</th><th>Amount</th></tr></thead><tbody><tr><td scope="row">1</td><td>Mark</td><td>Otto</td></tr><tr><td scope="row">2</td><td>foo</td><td>varr</td></tr></tbody></table>';
 
-                $this->assertEquals($expected,$this->table->generate($header,$datas,['class'=>'table'])); 
+                $this->assertEquals($expected, Table::generate($header,$datas,['class'=>'table'])); 
         }
 }
