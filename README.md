@@ -8,9 +8,6 @@ Generate Html Table with data from array/object.
 ```
 composer require lloricode/laravel-html-table
 
-# OR
-
-composer require lloricode/laravel-html-table dev-master 
 ```
 ## on laravel <= 5.4 you need add provider, while in laravel 5.5 it already in autoload
 ### Provider
