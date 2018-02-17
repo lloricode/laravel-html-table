@@ -2,6 +2,9 @@
 
 namespace Tests;
 
+
+use Tests\UserTest;
+
 class BaseTest extends \Orchestra\Testbench\TestCase
 {
 
@@ -10,10 +13,11 @@ class BaseTest extends \Orchestra\Testbench\TestCase
     public function setUp()
     {
         parent::setUp();
-
+        
         $this->loadLaravelMigrations();
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
         $this->artisan('migrate', ['--database' => 'testbench']);
+        $this->withFactories(__DIR__.'/factories');
     }
 
     protected function getPackageAliases($app)

@@ -1,10 +1,15 @@
 <?php
 
+use Tests\UserTest;
+
 class TestModel extends \Tests\BaseTest
 {
         public function testGenerateModel()
         {
                 $this->assertTrue(true);
+
+
+                // dd(UserTest::all());
                 // $test_header = [
                 //         'col1','col2'
                 // ];
