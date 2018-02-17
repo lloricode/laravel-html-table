@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 namespace Tests;
 
 class BaseTest extends \Orchestra\Testbench\TestCase
