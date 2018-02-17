@@ -47,9 +47,9 @@ $attributes = 'class="table"';
 // Or
 $attributes = ['myclass'=>'test_val'];
 
-{{ Table::generateTable($headers, $data) }}
+{!! Table::generateTable($headers, $data) !!}
 
-{{ Table::generateTable($headers, $data, $attributes) }}
+{!! Table::generateTable($headers, $data, $attributes) !!}
 
 // Model way
   
