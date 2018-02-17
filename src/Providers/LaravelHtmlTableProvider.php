@@ -1,7 +1,8 @@
 <?php
-namespace Lloricode\LaravelHtmlTable;
+namespace Lloricode\LaravelHtmlTable\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Lloricode\LaravelHtmlTable\LaravelHtmlTableGenerator;
 
 class LaravelHtmlTableProvider extends ServiceProvider
 {
@@ -24,6 +25,6 @@ class LaravelHtmlTableProvider extends ServiceProvider
         {
                 $this->app->singleton('lloricodelaravelhtmltable', function ($app) {
  			return new LaravelHtmlTableGenerator;
- 		});
+                 });
         }
 }

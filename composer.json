@@ -16,10 +16,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Lloricode\\LaravelHtmlTable\\LaravelHtmlTableProvider"
+                "Lloricode\\LaravelHtmlTable\\Providers\\LaravelHtmlTableProvider"
             ],
             "aliases": {
-                "Table": "Lloricode\\LaravelHtmlTable\\LaravelHtmlTableFacade"
+                "Table": "Lloricode\\LaravelHtmlTable\\Facades\\LaravelHtmlTableFacade"
             }
         }
     },

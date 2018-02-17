@@ -1,6 +1,6 @@
 <?php
 
-namespace Lloricode\LaravelHtmlTable;
+namespace Lloricode\LaravelHtmlTable\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

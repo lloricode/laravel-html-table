@@ -3,7 +3,6 @@
 namespace Lloricode\LaravelHtmlTable;
 
 use Illuminate\Database\Eloquent\Model;
-use App;
 
 class LaravelHtmlTableGenerator
 {
@@ -274,23 +273,6 @@ class LaravelHtmlTableGenerator
                 }
         }
 
-
-        /**
-         *
-         * Generate a completed html table with header and data
-         *
-         *
-         * @param $attributes
-         * @param $data
-         * @param $header
-         * @return string
-         * @author Lloric Mayuga Garcia <lloricode@gmail.com>
-         */
-        public function generateTable($header, $data = [],$attributes = [], $caption = null)
-        {
-                return $this->generate($header, $data, $attributes, $caption);
-        }
-
         /**
          *
          * Generate a completed html table with header and data
@@ -310,25 +292,6 @@ class LaravelHtmlTableGenerator
                 $this->_checTagsFromAttrbutes();
                 return $this->_generate($header ,$data);
         }
-
-
-        
-        /**
-         *
-         * Generate a completed html table with header and data
-         *
-         *
-         * @param $attributes
-         * @param $data
-         * @param $header
-         * @return string
-         * @author Lloric Mayuga Garcia <lloricode@gmail.com>
-         */
-        public function generateTableFromModel($header, $model,array $fields, $limit, $attributes = [], $caption = null)
-        {
-                return $this->generateModel($header, $model, $fields, $limit, $attributes, $caption);
-        }
-
         
         /**
          *

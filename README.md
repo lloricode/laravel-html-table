@@ -15,12 +15,12 @@ composer require lloricode/laravel-html-table dev-master
 ## on laravel <= 5.4 you need add provider, while in laravel 5.5 it already in autoload
 ### Provider
 ```php
-Lloricode\LaravelHtmlTable\LaravelHtmlTableProvider::class,
+Lloricode\LaravelHtmlTable\Providers\LaravelHtmlTableProvider::class,
 ```
 
 ### Aliase
 ```php
- 'Table'=>  Lloricode\LaravelHtmlTable\LaravelHtmlTableFacade::class,
+ 'Table'=>  Lloricode\LaravelHtmlTable\Facades\LaravelHtmlTableFacade::class,
  ```
 
 ## Sample in view.
@@ -120,7 +120,7 @@ $datas = [
                 'varr'
         ],
 ];
-{!! Llorictable::generate($header,$datas,['class'=>'table']) !!}
+{!! Table::generate($header, $datas, ['class'=>'table']) !!}
 <table class="table">
         <thead>
                 <tr>
