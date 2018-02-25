@@ -9,9 +9,22 @@
             "email": "lloricode@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
     "require": {       
         "php": ">=7.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "~3.3.0|~3.4.2|^3.5.0",
+        "phpunit/phpunit" : "^5.7|6.2|^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lloricode\\LaravelHtmlTable\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Lloricode\\LaravelHtmlTable\\Tests\\": "tests/"
+        }
     },
     "extra": {
         "laravel": {
@@ -22,20 +35,6 @@
                 "Table": "Lloricode\\LaravelHtmlTable\\Facades\\LaravelHtmlTableFacade"
             }
         }
-    },
-    "autoload": {
-        "psr-4": {
-            "Lloricode\\LaravelHtmlTable\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
-    "require-dev": {
-        "orchestra/testbench": "~3.0",
-        "phpunit/phpunit": "^7.1"
     },
     "scripts": {
         "test": "./vendor/bin/phpunit"

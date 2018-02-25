@@ -1,6 +1,8 @@
 <?php
 
-class TestLaravelHtmlTable extends \Tests\BaseTest
+use Lloricode\LaravelHtmlTable\Tests\TestCase;
+
+class TestLaravelHtmlTable extends TestCase
 {
         public function testHtmlOutputWithNoAttibutes()
         {
