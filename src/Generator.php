@@ -2,7 +2,6 @@
 
 namespace Lloricode\LaravelHtmlTable;
 
-
 use Illuminate\Database\Eloquent\Model;
 
 class Generator
