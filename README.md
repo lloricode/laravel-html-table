@@ -1,6 +1,6 @@
 
 # Laravel Html Table
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/lloricode/laravel-html-table.svg)](https://packagist.org/packages/lloricode/laravel-html-table) [![Build Status](https://travis-ci.org/lloricode/laravel-html-table.svg?branch=master)](https://travis-ci.org/lloricode/laravel-html-table) [![Total Downloads](https://img.shields.io/packagist/dt/lloricode/laravel-html-table.svg)](https://packagist.org/packages/spatie/lloricode/laravel-html-table)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/lloricode/laravel-html-table.svg)](https://packagist.org/packages/lloricode/laravel-html-table) [![Build Status](https://travis-ci.org/lloricode/laravel-html-table.svg?branch=master)](https://travis-ci.org/lloricode/laravel-html-table) [![Total Downloads](https://img.shields.io/packagist/dt/lloricode/laravel-html-table.svg)](https://packagist.org/packages/lloricode/laravel-html-table)
 
 Generate Html Table with data from array/object.
 
