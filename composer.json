@@ -14,7 +14,8 @@
     },
     "require-dev": {
         "orchestra/testbench": "~3.3.0|~3.4.2|^3.5.0",
-        "phpunit/phpunit" : "^5.7|6.2|^7.0"
+        "phpunit/phpunit" : "^5.7|6.2|^7.0",
+        "mmoreram/php-formatter": "dev-master"
     },
     "autoload": {
         "psr-4": {
@@ -37,6 +38,10 @@
         }
     },
     "scripts": {
-        "test": "./vendor/bin/phpunit"
+        "test": "./vendor/bin/phpunit",
+        "format": [
+            "./vendor/bin/php-formatter formatter:use:sort src/ --sort-type=\"alph\"",
+            "./vendor/bin/php-formatter formatter:use:sort tests/ --sort-type=\"alph\""
+        ]
     }
 }

@@ -2,9 +2,9 @@
 
 namespace Lloricode\LaravelHtmlTable\Tests;
 
-use Orchestra\Testbench\TestCase as Orchestra;
 use Illuminate\Database\Schema\Blueprint;
 use Lloricode\LaravelHtmlTable\Tests\Models\User;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {

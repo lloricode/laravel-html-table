@@ -2,7 +2,6 @@
 
 namespace Lloricode\LaravelHtmlTable;
 
-
 use Illuminate\Database\Eloquent\Model;
 
 class Generator
@@ -198,7 +197,7 @@ class Generator
 			$label = $this->optionLinks['rowLabel'];
 		}
 		else{
-			$label = 'a';
+			$label = 'View';
 		}
 		return "<a href=\"$link\">$label</a>";
 	}
