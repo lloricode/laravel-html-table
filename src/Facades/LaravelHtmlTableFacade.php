@@ -15,8 +15,8 @@ class LaravelHtmlTableFacade extends Facade
         *
         * @return string
         */
-        protected static function getFacadeAccessor()
-        {
-                return 'lloricodelaravelhtmltable';
-        }
+    protected static function getFacadeAccessor()
+    {
+        return 'lloricodelaravelhtmltable';
+    }
 }
