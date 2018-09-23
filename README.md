@@ -63,12 +63,17 @@ $attributes = ['myclass'=>'test_val'];
 
 // then you can add a links
 
-    {!! Table::optionLinks('my.route.name')->generateModel(
-        ['Id', 'Name', 'Email'],  // Column for table
-        'App\User' // Model
-        ,['id', 'name', 'email'], // Fields from model
-        5, // Pagination Limit, if 0 all will show
-        'border="1"' // Attributes sample js/css
+    {!! Table::optionLinks('my.route.name')    
+         ->modelResult(function($query){  // you can add filter if you are using model generate
+               $query->where('user_id', auth()->user()->id);
+               return $query;
+           })    
+        ->generateModel(
+           ['Id', 'Name', 'Email'],  // Column for table
+           'App\User' // Model
+          ,['id', 'name', 'email'], // Fields from model
+            5, // Pagination Limit, if 0 all will show
+           'border="1"' // Attributes sample js/css
         ) !!}   
 // you can specify more args
 // 1st route name, 2nd heder label, and 3rd is the every row label
