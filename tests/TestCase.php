@@ -8,7 +8,6 @@ use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
-    
     public function setUp()
     {
         parent::setUp();
@@ -16,7 +15,7 @@ class TestCase extends Orchestra
         $this->setUpDatabase($this->app);
     }
 
-            /**
+    /**
      * Set up the database.
      *
      * @param \Illuminate\Foundation\Application $app
@@ -29,7 +28,6 @@ class TestCase extends Orchestra
             $table->string('email');
             $table->string('slug');
             $table->string('password');
-
         });
 
         User::create([

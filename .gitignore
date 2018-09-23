@@ -1,2 +1,3 @@
 /vendor
-composer.lock
+/report
+.php_cs.cache
