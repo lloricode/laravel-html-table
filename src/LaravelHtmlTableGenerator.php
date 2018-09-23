@@ -2,7 +2,7 @@
 
 namespace Lloricode\LaravelHtmlTable;
 
-use Illuminate\Database\Eloquent\Model;
+use Closure;
 
 class LaravelHtmlTableGenerator extends Generator
 {
@@ -77,6 +77,20 @@ class LaravelHtmlTableGenerator extends Generator
         $this->attributes = $attributes;
         $this->checTagsFromAttrbutes();
         return $this->execute($header, $model, $limit, $fields);
+    }
+
+    /**
+     *
+     * Set closure for getting data from model with query bulder
+     *
+     * @param $closure
+     * @return $this
+     * @author Lloric Mayuga Garcia <lloricode@gmail.com>
+     */
+    public function modelResult(Closure $closure)
+    {
+        $this->modelResultClosure = $closure;
+        return $this;
     }
 
     /**

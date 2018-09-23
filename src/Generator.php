@@ -52,6 +52,8 @@ class Generator
      * @type optionLinks
      */
     protected $optionLinks;
+        
+    protected $modelResultClosure;
          
          
     /**
@@ -65,6 +67,7 @@ class Generator
         $this->tags = $this->_getDefaultTags();
         $this->links = null;
         $this->optionLinks = null;
+        $this->modelResultClosure = null;
     }
 
 
@@ -151,13 +154,22 @@ class Generator
 
     private function _rows_data_with_model($model, array $fields, $limit)
     {
+        $model = $model::select($fields);
+
+        if (!is_null($this->modelResultClosure)) {
+            $c = $this->modelResultClosure;
+            $model = $c($model);
+        }
+
         if ($limit == 0) {
-            $objt = $model::select($fields)->get();
+            $objt = $model->get();
         } else {
-            $objt = $model::select($fields)->paginate($limit);
+            $objt = $model->paginate($limit);
             $this->links = $objt->links();
         }
+
         $data=[];
+        
         foreach ($objt as $r) {
             $t=[];
             foreach ($fields as $f) {
@@ -303,33 +315,33 @@ class Generator
     private function _getDefaultTags()
     {
         return [
-                // Main Table
-                'table'         => '<table>',
-                'table_end'     => '</table>',
+            // Main Table
+            'table'         => '<table>',
+            'table_end'     => '</table>',
 
-                // Head
-                'head'          => '<thead>',
-                'head_end'      => '</thead>',
+            // Head
+            'head'          => '<thead>',
+            'head_end'      => '</thead>',
 
-                'head_row'      => '<tr>',
-                'head_row_end'  => '</tr>',
-                'head_cell'      => '<th>',
-                'head_cell_end'  => '</th>',
+            'head_row'      => '<tr>',
+            'head_row_end'  => '</tr>',
+            'head_cell'      => '<th>',
+            'head_cell_end'  => '</th>',
 
-                // Data body
-                'body'          => '<tbody>',
-                'body_end'      => '</tbody>',
+            // Data body
+            'body'          => '<tbody>',
+            'body_end'      => '</tbody>',
 
-                'body_row'      => '<tr>',
-                'body_row_end'  => '</tr>',
-                'body_cell'      => '<td>',
-                'body_cell_end'  => '</td>',
+            'body_row'      => '<tr>',
+            'body_row_end'  => '</tr>',
+            'body_cell'      => '<td>',
+            'body_cell_end'  => '</td>',
 
-                // Alternative
-                'alt_body_row'      => '<tr>',
-                'alt_body_row_end'  => '</tr>',
-                'alt_body_cell'      => '<td>',
-                'alt_body_cell_end'  => '</td>'
+            // Alternative
+            'alt_body_row'      => '<tr>',
+            'alt_body_row_end'  => '</tr>',
+            'alt_body_cell'      => '<td>',
+            'alt_body_cell_end'  => '</td>'
         ];
     }
 }
