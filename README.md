@@ -4,7 +4,7 @@
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/lloricode/laravel-html-table/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/lloricode/laravel-html-table/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/lloricode/laravel-html-table/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/lloricode/laravel-html-table/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/lloricode/laravel-html-table.svg?style=flat-square)](https://packagist.org/packages/lloricode/laravel-html-table)
-[![codecov](https://codecov.io/gh/lloricode/laravel-html-table/branch/master/graph/badge.svg?token=gQRHSwYXAm)](https://codecov.io/gh/lloricode/laravel-html-table)
+[![codecov](https://codecov.io/gh/lloricode/laravel-html-table/branch/main/graph/badge.svg?token=gQRHSwYXAm)](https://codecov.io/gh/lloricode/laravel-html-table)
 Generate Html Table with data from array/object..
 
 ## Installation
