@@ -29,10 +29,6 @@ jobs:
         exclude:
           - php: 8.0
             laravel: ^10.0.0
-          - php: 7.4
-            laravel: ^10.0.0
-          - php: 7.4
-            laravel: ^9.51.0
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
@@ -61,7 +57,7 @@ jobs:
         run: composer show -D
 
       - name: Execute tests
-        run: vendor/bin/pest --coverage-clover coverage.xml
+        run: composer test-coverage -- --ci
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
