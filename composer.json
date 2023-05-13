@@ -45,7 +45,7 @@
         }
     },
     "scripts": {
-        "test": "./vendor/bin/phpunit",
+        "test": "vendor/bin/pest",
         "format-dry-run": "vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run",
         "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes",
         "refactor": "vendor/bin/rector process",
