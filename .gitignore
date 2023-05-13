@@ -1,3 +1,5 @@
 /vendor
 /report
 .php_cs.cache
+/.idea
+composer.lock
