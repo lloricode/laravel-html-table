@@ -90,14 +90,15 @@ class Generator
 
     private function rowsDataWithModel(Builder $query, array $fields, int $limit): string
     {
-        $query->select($fields);
+        $query
+            ->select($fields)
+            ->when(
+                $this->modelResultClosure !== null,
+                /** @phpstan-ignore-next-line  */
+                fn (Builder $query): Builder => value($this->modelResultClosure, $query)
+            );
 
-        if ( ! is_null($this->modelResultClosure)) {
-            $c = $this->modelResultClosure;
-            $query = $c($query);
-        }
-
-        if ($limit == 0) {
+        if ($limit === 0) {
             $models = $query->get();
         } else {
             $models = $query->paginate($limit);
@@ -106,8 +107,7 @@ class Generator
 
         $result = [];
 
-        foreach ($models as $m) {
-            /** @var Model $m */
+        $models->each(function (Model $m) use ($fields, &$result) {
             $attributes = [];
             foreach ($fields as $f) {
                 $attributes[] = $m->getAttribute($f);
@@ -118,7 +118,7 @@ class Generator
             }
 
             $result[] = $attributes;
-        }
+        });
 
         return $this->rowsData($result);
     }

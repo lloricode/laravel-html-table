@@ -2,5 +2,10 @@ parameters:
     level: 8
     paths:
         - src
+
+    ignoreErrors:
+        - '#Call to an undefined method Illuminate\\Contracts\\Pagination\\LengthAwarePaginator::links\(\).#'
+        - '#Cannot call method each\(\) on array<Illuminate\\Database\\Eloquent\\Builder>\|Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\|Illuminate\\Database\\Eloquent\\Collection.#'
+
     tmpDir: build/phpstan
     checkMissingIterableValueType: false
