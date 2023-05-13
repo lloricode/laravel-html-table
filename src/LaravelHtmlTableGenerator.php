@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Lloricode\LaravelHtmlTable;
 
 use Closure;
+use Illuminate\Contracts\Support\Htmlable;
 
 class LaravelHtmlTableGenerator extends Generator
 {
@@ -71,7 +72,7 @@ class LaravelHtmlTableGenerator extends Generator
     }
 
     /** Generated links */
-    public function links(): ?string
+    public function links(): ?Htmlable
     {
         $links = $this->links;
         $this->links = null;

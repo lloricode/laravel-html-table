@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Lloricode\LaravelHtmlTable;
 
 use Closure;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,7 +15,7 @@ class Generator
 
     protected string|array $attributes;
 
-    protected ?string $links = null;
+    protected ?Htmlable $links = null;
 
     protected ?string $caption = null;
 
@@ -99,7 +100,6 @@ class Generator
                     $query->getModel()->getRouteKeyName(),
                 ]),
             )
-
             ->when(
                 $this->modelResultClosure !== null,
                 /** @phpstan-ignore-next-line  */
@@ -110,7 +110,7 @@ class Generator
             $models = $query->get();
         } else {
             $models = $query->paginate($limit);
-            $this->links = (string) $models->links();
+            $this->links = $models->links();
         }
 
         $result = [];

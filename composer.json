@@ -23,7 +23,8 @@
         "rector/rector": "^0.16",
         "spatie/pest-plugin-snapshots": "^2.0.1",
         "laravel/pint": "^1.10",
-        "phpstan/phpstan": "^1.10"
+        "phpstan/phpstan": "^1.10",
+        "nunomaduro/larastan": "^2.6"
     },
     "autoload": {
         "psr-4": {
