@@ -1,0 +1,1 @@
+<table><caption>My Table Caption</caption><thead><tr><th>Header</th></tr></thead><tbody><tr><td>row data</td></tr></tbody></table>
