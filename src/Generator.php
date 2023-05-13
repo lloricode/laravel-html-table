@@ -24,11 +24,11 @@ class Generator
 
     public function __construct()
     {
-        $this->tags = $this->_getDefaultTags();
+        $this->tags = $this->getDefaultTags();
     }
 
     /** Generate Html Header with value. */
-    private function _header(array $header): string
+    private function header(array $header): string
     {
         $output = $this->tags['head'];
 
@@ -38,7 +38,7 @@ class Generator
             $output .= $this->tags['head_cell'].$row.$this->tags['head_cell_end'];
         }
 
-        if (! is_null($this->optionLinks)) {
+        if ( ! is_null($this->optionLinks)) {
             $output .= $this->tags['head_cell'].$this->optionLinks['headerLabel'].$this->tags['head_cell_end'];
         }
 
@@ -51,7 +51,7 @@ class Generator
     }
 
     /** Generate Rows with data. */
-    private function _rows_data(array $data): string
+    private function rowsData(array $data): string
     {
         $output = $this->tags['body'];
 
@@ -61,24 +61,24 @@ class Generator
 
             $output .= $this->tags[$alter.'body_row'];
             foreach ($row1 as $row) {
-                $body_cell_tag_close = $this->tags['body_cell_end'];
+                $bodyCellTagClose = $this->tags['body_cell_end'];
                 if (is_array($row) && array_key_exists('data', $row)) {
                     $data = $row['data'];
                     unset($row['data']);
 
                     if (isset($row['body_celltags'])) {
-                        $body_cell_tag = $row['body_celltags'];
-                        $body_cell_tag_open = $body_cell_tag['open'];
-                        $body_cell_tag_close = $body_cell_tag['close'];
+                        $bodyCellTag = $row['body_celltags'];
+                        $bodyCellTagOpen = $bodyCellTag['open'];
+                        $bodyCellTagClose = $bodyCellTag['close'];
                     } else {
-                        $body_cell_tag_open = trim($this->tags[$alter.'body_cell'], '>').$this->_attributeToString($row).'>';
+                        $bodyCellTagOpen = trim($this->tags[$alter.'body_cell'], '>').$this->attributeToString($row).'>';
                     }
                 } else {
                     $data = $row;
-                    $body_cell_tag_open = $this->tags[$alter.'body_cell'];
+                    $bodyCellTagOpen = $this->tags[$alter.'body_cell'];
                 }
 
-                $output .= $body_cell_tag_open.$data.$body_cell_tag_close;
+                $output .= $bodyCellTagOpen.$data.$bodyCellTagClose;
             }
             $output .= $this->tags['body_row_end'];
 
@@ -88,11 +88,11 @@ class Generator
         return $output.$this->tags['body_end'];
     }
 
-    private function _rows_data_with_model($model, array $fields, int $limit): string
+    private function rowsDataWithModel($model, array $fields, int $limit): string
     {
         $model = $model::select($fields);
 
-        if (! is_null($this->modelResultClosure)) {
+        if ( ! is_null($this->modelResultClosure)) {
             $c = $this->modelResultClosure;
             $model = $c($model);
         }
@@ -112,21 +112,21 @@ class Generator
                 $t[] = $m[$f];
             }
 
-            if (! is_null($this->optionLinks)) {
-                $t[] = $this->_optionLinks($m);
+            if ( ! is_null($this->optionLinks)) {
+                $t[] = $this->optionLinks($m);
             }
 
             $data[] = $t;
         }
 
-        return $this->_rows_data($data);
+        return $this->rowsData($data);
     }
 
-    private function _optionLinks(Model $model): string
+    private function optionLinks(Model $model): string
     {
         $link = route($this->optionLinks['routerName'], $model->getRouteKey());
 
-        if (! is_null($this->optionLinks['rowLabel'])) {
+        if ( ! is_null($this->optionLinks['rowLabel'])) {
             $label = $this->optionLinks['rowLabel'];
         } else {
             $label = 'View';
@@ -140,13 +140,13 @@ class Generator
      *
      * @return array|string $param
      */
-    private function _attributeToString($param): string
+    private function attributeToString($param): string
     {
         $return = '';
         if (is_array($param)) {
             foreach ($param as $key => $value) {
-                if (! array_key_exists($key, $this->tags)) {
-                    $return .= $this->_attributeToString("$key=\"$value\"");
+                if ( ! array_key_exists($key, $this->tags)) {
+                    $return .= $this->attributeToString("$key=\"$value\"");
                 }
             }
         } else {
@@ -160,28 +160,28 @@ class Generator
     /**
      * Start Generating table with data.
      *
-     * @param  array|string|null  $model_or_array
+     * @param  array|string|null  $modelOrArray
      */
     protected function execute(
         array $header,
-        $model_or_array,
+        $modelOrArray,
         ?int $limit = null,
         ?array $fields = null
     ): string {
         $output = $this->generateOpenTag();
 
-        if (! is_null($this->caption)) {
+        if ( ! is_null($this->caption)) {
             $output .= "<caption>{$this->caption}</caption>";
         }
 
-        $output .= $this->_header($header);
-        if (is_array($model_or_array)) {
-            $output .= $this->_rows_data($model_or_array);
-        } elseif (is_string($model_or_array) && ! is_null($fields) && ! is_null($limit)) {
-            $output .= $this->_rows_data_with_model($model_or_array, $fields, $limit);
+        $output .= $this->header($header);
+        if (is_array($modelOrArray)) {
+            $output .= $this->rowsData($modelOrArray);
+        } elseif (is_string($modelOrArray) && ! is_null($fields) && ! is_null($limit)) {
+            $output .= $this->rowsDataWithModel($modelOrArray, $fields, $limit);
         }
 
-        $this->_resetDefaultTags();
+        $this->resetDefaultTags();
         $this->optionLinks = null;
 
         return $output.$this->tags['table_end'];
@@ -192,7 +192,7 @@ class Generator
     {
         $openTag = $this->tags['table'];
 
-        return rtrim($openTag, '>').$this->_attributeToString($this->attributes).'>';
+        return rtrim($openTag, '>').$this->attributeToString($this->attributes).'>';
     }
 
     /** Override default tags, with on existed keys on array $this->tags. */
@@ -212,13 +212,13 @@ class Generator
     }
 
     /** Reset Tags */
-    private function _resetDefaultTags(): void
+    private function resetDefaultTags(): void
     {
-        $this->tags = $this->_getDefaultTags();
+        $this->tags = $this->getDefaultTags();
     }
 
     /** Default html table tags. */
-    private function _getDefaultTags(): array
+    private function getDefaultTags(): array
     {
         return [
             // Main Table
