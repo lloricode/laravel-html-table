@@ -88,38 +88,39 @@ class Generator
         return $output.$this->tags['body_end'];
     }
 
-    private function rowsDataWithModel($model, array $fields, int $limit): string
+    private function rowsDataWithModel(Model $model, array $fields, int $limit): string
     {
-        $model = $model::select($fields);
+        $query = $model::query()->select($fields);
 
         if ( ! is_null($this->modelResultClosure)) {
             $c = $this->modelResultClosure;
-            $model = $c($model);
+            $query = $c($query);
         }
 
         if ($limit == 0) {
-            $models = $model->get();
+            $models = $query->get();
         } else {
-            $models = $model->paginate($limit);
-            $this->links = $models->links();
+            $models = $query->paginate($limit);
+            $this->links = (string) $models->links();
         }
 
-        $data = [];
+        $result = [];
 
         foreach ($models as $m) {
-            $t = [];
+            /** @var Model $m */
+            $attributes = [];
             foreach ($fields as $f) {
-                $t[] = $m[$f];
+                $attributes[] = $m->getAttribute($f);
             }
 
             if ( ! is_null($this->optionLinks)) {
-                $t[] = $this->optionLinks($m);
+                $attributes[] = $this->optionLinks($m);
             }
 
-            $data[] = $t;
+            $result[] = $attributes;
         }
 
-        return $this->rowsData($data);
+        return $this->rowsData($result);
     }
 
     private function optionLinks(Model $model): string
@@ -178,7 +179,7 @@ class Generator
         if (is_array($modelOrArray)) {
             $output .= $this->rowsData($modelOrArray);
         } elseif (is_string($modelOrArray) && ! is_null($fields) && ! is_null($limit)) {
-            $output .= $this->rowsDataWithModel($modelOrArray, $fields, $limit);
+            $output .= $this->rowsDataWithModel(new $modelOrArray(), $fields, $limit);
         }
 
         $this->resetDefaultTags();
