@@ -93,32 +93,32 @@ $attributes = ['myclass' => 'test_val'];
 ```php
 $attributes = [
     // Main Table
-    'table'         => '<table>',
-    'table_end'     => '</table>',
+    'table' => '<table>',
+    'table_end' => '</table>',
 
-    // Head 
-    'head'          => '<thead>',
-    'head_end'      => '</thead>',
+    // Head
+    'head' => '<thead>',
+    'head_end' => '</thead>',
 
-    'head_row'      => '<tr>',
-    'head_row_end'  => '</tr>',
-    'head_cell'      => '<th>',
-    'head_cell_end'  => '</th>',
+    'head_row' => '<tr>',
+    'head_row_end' => '</tr>',
+    'head_cell' => '<th>',
+    'head_cell_end' => '</th>',
 
     // Data body
-    'body'          => '<tbody>',
-    'body_end'      => '</tbody>',
+    'body' => '<tbody>',
+    'body_end' => '</tbody>',
 
-    'body_row'      => '<tr>',
-    'body_row_end'  => '</tr>',                        
-    'body_cell'      => '<td>',
-    'body_cell_end'  => '</td>',
+    'body_row' => '<tr>',
+    'body_row_end' => '</tr>',
+    'body_cell' => '<td>',
+    'body_cell_end' => '</td>',
 
     // Alternative
-    'alt_body_row'      => '<tr>',
-    'alt_body_row_end'  => '</tr>',                        
-    'alt_body_cell'      => '<td>',
-    'alt_body_cell_end'  => '</td>'
+    'alt_body_row' => '<tr>',
+    'alt_body_row_end' => '</tr>',
+    'alt_body_cell' => '<td>',
+    'alt_body_cell_end' => '</td>',
 ];
 
 {!! Table::generate($headers, $data, $attributes) !!}
@@ -148,25 +148,25 @@ $datas = [
 {!! Table::generate($header, $datas, ['class'=>'table']) !!}
 
 <table class="table">
-       <thead>
-               <tr>
-                       <th>Date</th>
-                       <th>Description</th>
-                       <th>Amount</th>
-               </tr>
-       </thead>
-       <tbody>
-               <tr>
-                       <td scope="row">1</td>
-                       <td>Mark</td>
-                       <td>Otto</td>
-               </tr>
-               <tr>
-                       <td scope="row">2</td>
-                       <td>foo</td>
-                       <td>varr</td>
-               </tr>
-       </tbody>
+   <thead>
+       <tr>
+           <th>Date</th>
+           <th>Description</th>
+           <th>Amount</th>
+       </tr>
+   </thead>
+   <tbody>
+       <tr>
+           <td scope="row">1</td>
+           <td>Mark</td>
+           <td>Otto</td>
+       </tr>
+       <tr>
+           <td scope="row">2</td>
+           <td>foo</td>
+           <td>varr</td>
+       </tr>
+   </tbody>
 </table>
 ```
 
