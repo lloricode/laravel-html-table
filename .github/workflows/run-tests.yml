@@ -61,7 +61,7 @@ jobs:
         run: composer show -D
 
       - name: Execute tests
-        run: XDEBUG_MODE=coverage vendor/bin/pest --coverage-clover coverage.xml
+        run: vendor/bin/pest --coverage-clover coverage.xml
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
