@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Lloricode\LaravelHtmlTable;
 
+use Closure;
+
 class LaravelHtmlTableGenerator extends Generator
 {
     public function __construct()
@@ -41,7 +43,9 @@ class LaravelHtmlTableGenerator extends Generator
         return $this->execute($header, $data);
     }
 
-    /** Generate a completed html table with header and data */
+    /** Generate a completed html table with header and data
+     * @param class-string<\Illuminate\Database\Eloquent\Model> $model
+     */
     public function generateModel(
         array $header,
         string $model,
@@ -59,7 +63,7 @@ class LaravelHtmlTableGenerator extends Generator
     }
 
     /** Set closure for getting data from model with query builder */
-    public function modelResult(callable $closure): self
+    public function modelResult(Closure $closure): self
     {
         $this->modelResultClosure = $closure;
 

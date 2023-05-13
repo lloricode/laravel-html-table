@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Lloricode\LaravelHtmlTable;
 
 use Closure;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Generator
@@ -23,7 +24,7 @@ class Generator
 
     public function __construct()
     {
-        $this->tags = $this->getDefaultTags();
+        $this->resetDefaultTags();
     }
 
     /** Generate Html Header with value. */
@@ -44,7 +45,7 @@ class Generator
         return $output.$this->tags['head_row_end'].$this->tags['head_end'];
     }
 
-    protected function setCaption($caption): void
+    protected function setCaption(?string $caption): void
     {
         $this->caption = $caption;
     }
@@ -87,9 +88,9 @@ class Generator
         return $output.$this->tags['body_end'];
     }
 
-    private function rowsDataWithModel(Model $model, array $fields, int $limit): string
+    private function rowsDataWithModel(Builder $query, array $fields, int $limit): string
     {
-        $query = $model::query()->select($fields);
+        $query->select($fields);
 
         if ( ! is_null($this->modelResultClosure)) {
             $c = $this->modelResultClosure;
@@ -156,11 +157,11 @@ class Generator
     /**
      * Start Generating table with data.
      *
-     * @param  array|string|null  $modelOrArray
+     * @param  array|class-string<\Illuminate\Database\Eloquent\Model>|null  $modelOrArray
      */
     protected function execute(
         array $header,
-        $modelOrArray,
+        array|string|null $modelOrArray,
         ?int $limit = null,
         ?array $fields = null
     ): string {
@@ -174,7 +175,7 @@ class Generator
         if (is_array($modelOrArray)) {
             $output .= $this->rowsData($modelOrArray);
         } elseif (is_string($modelOrArray) && ! is_null($fields) && ! is_null($limit)) {
-            $output .= $this->rowsDataWithModel(new $modelOrArray(), $fields, $limit);
+            $output .= $this->rowsDataWithModel($modelOrArray::query(), $fields, $limit);
         }
 
         $this->resetDefaultTags();
@@ -198,7 +199,7 @@ class Generator
             // Get all keys
             foreach (array_keys($this->tags) as $key) {
                 // if default key exist in attribute given by user,
-                // replay the value from default key.
+                // replace the value from default key.
                 if (array_key_exists($key, $this->attributes)) {
                     $this->tags[$key] = $this->attributes[$key];
                     unset($this->attributes[$key]);

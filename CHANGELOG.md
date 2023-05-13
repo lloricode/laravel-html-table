@@ -14,3 +14,4 @@ All notable changes to `laravel-html-table` will be documented in this file
 - Install rector for easy upgrade php support inn later version.
 - Fix psr 12 coding style.
 - Use GitHub action test
+- Install phpstan
