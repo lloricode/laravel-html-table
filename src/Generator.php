@@ -91,7 +91,15 @@ class Generator
     private function rowsDataWithModel(Builder $query, array $fields, int $limit): string
     {
         $query
-            ->select($fields)
+            ->when(
+                $this->optionLinks === null,
+                fn (Builder $query): Builder => $query->select($fields),
+                fn (Builder $query): Builder => $query->select([
+                    ...$fields,
+                    $query->getModel()->getRouteKeyName(),
+                ]),
+            )
+
             ->when(
                 $this->modelResultClosure !== null,
                 /** @phpstan-ignore-next-line  */

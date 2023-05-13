@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 use Lloricode\LaravelHtmlTable\Facades\LaravelHtmlTableFacade;
 use Lloricode\LaravelHtmlTable\Tests\Support\TestModel;
 
@@ -95,3 +96,24 @@ it('generate w/ limit', function (int $limit): void {
     expect($generated)
         ->toMatchTextSnapshot();
 })->with([0, 1]);
+
+it('generate w/ options', function (): void {
+    TestModel::create([
+        'name' => 'Orchestra',
+        'email' => 'hello@orchestraplatform.com',
+    ]);
+
+    Route::get('/test/{model}')
+        ->name('test.model.show');
+
+    $generated = LaravelHtmlTableFacade::optionLinks('test.model.show')
+        ->generateModel(
+            header: ['name'],
+            model: TestModel::class,
+            fields:['name'],
+            limit: 0
+        );
+
+    expect($generated)
+        ->toMatchTextSnapshot();
+});
