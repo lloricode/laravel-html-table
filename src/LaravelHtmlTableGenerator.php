@@ -40,7 +40,7 @@ class LaravelHtmlTableGenerator extends Generator
         $this->setCaption($caption);
 
         $this->attributes = $attributes;
-        $this->checTagsFromAttrbutes();
+        $this->checkTagsFromAttributes();
 
         return $this->execute($header, $data);
     }
@@ -61,7 +61,7 @@ class LaravelHtmlTableGenerator extends Generator
         $this->setCaption($caption);
 
         $this->attributes = $attributes;
-        $this->checTagsFromAttrbutes();
+        $this->checkTagsFromAttributes();
 
         return $this->execute($header, $model, $limit, $fields);
     }

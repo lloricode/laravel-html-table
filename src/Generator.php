@@ -171,7 +171,7 @@ class Generator
         $output = $this->generateOpenTag();
 
         if ( ! is_null($this->caption)) {
-            $output .= "<caption>{$this->caption}</caption>";
+            $output .= "<caption>$this->caption</caption>";
         }
 
         $output .= $this->header($header);
@@ -187,7 +187,7 @@ class Generator
         return $output.$this->tags['table_end'];
     }
 
-    /** Generate a open tag for <table> with attribute specified */
+    /** Generate an open tag for <table> with attribute specified */
     protected function generateOpenTag(): string
     {
         $openTag = $this->tags['table'];
@@ -196,13 +196,13 @@ class Generator
     }
 
     /** Override default tags, with on existed keys on array $this->tags. */
-    protected function checTagsFromAttrbutes(): void
+    protected function checkTagsFromAttributes(): void
     {
         if (is_array($this->attributes)) {
             // Get all keys
             foreach (array_keys($this->tags) as $key) {
                 // if default key exist in attribute given by user,
-                // replay the valu from default key.
+                // replay the value from default key.
                 if (array_key_exists($key, $this->attributes)) {
                     $this->tags[$key] = $this->attributes[$key];
                     unset($this->attributes[$key]);
