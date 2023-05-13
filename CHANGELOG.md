@@ -8,7 +8,7 @@ All notable changes to `laravel-html-table` will be documented in this file
 
 - Massive clean up with latest tools and standard.
 - Drop support PHP 8.0 and below.
-- Set laravel 8 minimum support to laravel 10 as latest support
+- Set laravel 10 minimum support
 - Convert to pest test.
 - Use spatie/pest-plugin-snapshots for clean up test.
 - Install rector for easy upgrade php support inn later version.
