@@ -1,110 +1,86 @@
 <?php
 
-namespace Lloricode\LaravelHtmlTable;
+declare(strict_types=1);
 
-use Closure;
+namespace Lloricode\LaravelHtmlTable;
 
 class LaravelHtmlTableGenerator extends Generator
 {
-
-        /**
-         * Contructor
-         *
-         *
-         *
-         */
     public function __construct()
     {
         parent::__construct();
     }
 
-    /**
-     *
-     * Set Link options on model generate
-     *
-     *
-     * @param $label
-     * @param $options
-     * @return LaravelHtmlTableGenerator
-     * @author Lloric Mayuga Garcia <lloricode@gmail.com>
-     */
-    public function optionLinks($routerName, $headerLabel = 'Option', $rowLabel = null)
+    /** Set Link options on model generate */
+    public function optionLinks(
+        string $routerName,
+        string $headerLabel = 'Option',
+        ?string $rowLabel = null
+    ): self
     {
         $this->optionLinks = [
-                        'routerName' => $routerName,
-                        'headerLabel' => $headerLabel,
-                        'rowLabel' => $rowLabel,
-                ];
+            'routerName' => $routerName,
+            'headerLabel' => $headerLabel,
+            'rowLabel' => $rowLabel,
+        ];
 
         return $this;
     }
 
     /**
-     *
      * Generate a completed html table with header and data
      *
-     *
-     * @param $attributes
-     * @param $data
-     * @param $header
-     * @return string
-     * @author Lloric Mayuga Garcia <lloricode@gmail.com>
+     * @param array|string $attributes
      */
-    public function generate(array $header, $data = [], $attributes = [], $caption = null)
-    {
+    public function generate(
+        array $header,
+        array $data = [],
+        $attributes = [],
+        ?string $caption = null
+    ): string {
         $this->setCaption($caption);
 
         $this->attributes = $attributes;
         $this->checTagsFromAttrbutes();
+
         return $this->execute($header, $data);
     }
-        
+
     /**
-     *
      * Generate a completed html table with header and data
      *
-     *
-     * @param $attributes
-     * @param $data
-     * @param $header
-     * @return string
-     * @author Lloric Mayuga Garcia <lloricode@gmail.com>
+     * @param array|string $attributes
      */
-    public function generateModel(array $header, $model, array $fields, $limit, $attributes = [], $caption = null)
-    {
+    public function generateModel(
+        array $header,
+        string $model,
+        array $fields,
+        int $limit,
+        $attributes = [],
+        ?string $caption = null
+    ): string {
         $this->setCaption($caption);
-                
+
         $this->attributes = $attributes;
         $this->checTagsFromAttrbutes();
+
         return $this->execute($header, $model, $limit, $fields);
     }
 
-    /**
-     *
-     * Set closure for getting data from model with query bulder
-     *
-     * @param $closure
-     * @return $this
-     * @author Lloric Mayuga Garcia <lloricode@gmail.com>
-     */
-    public function modelResult(Closure $closure)
+    /** Set closure for getting data from model with query builder */
+    public function modelResult(callable $closure): self
     {
         $this->modelResultClosure = $closure;
+
         return $this;
     }
 
-    /**
-    *
-    * Generated links
-    *
-    *
-    * @return string
-    * @author Lloric Mayuga Garcia <lloricode@gmail.com>
-    */
-    public function links()
+    /** Generated links */
+    public function links(): ?string
     {
         $links = $this->links;
         $this->links = null;
+
         return $links;
     }
 }

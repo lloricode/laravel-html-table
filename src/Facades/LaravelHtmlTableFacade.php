@@ -1,21 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Lloricode\LaravelHtmlTable\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Collective\Html\HtmlBuilder
+ * @mixin \Lloricode\LaravelHtmlTable\LaravelHtmlTableGenerator
  */
 class LaravelHtmlTableFacade extends Facade
 {
-
-        /**
-        * Get the registered name of the component.
-        *
-        * @return string
-        */
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return 'lloricodelaravelhtmltable';
     }
