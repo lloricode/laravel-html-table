@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\View\View;
 use Lloricode\LaravelHtmlTable\Facades\LaravelHtmlTableFacade;
 use Lloricode\LaravelHtmlTable\Tests\Support\TestModel;
 
@@ -48,6 +49,9 @@ it('generate model', function (): void {
 
     expect($generated)
         ->toMatchTextSnapshot();
+
+    expect(LaravelHtmlTableFacade::links())
+        ->toBeNull();
 });
 
 it('generate with modified query', function (): void {
@@ -74,6 +78,9 @@ it('generate with modified query', function (): void {
 
     expect($generated)
         ->toMatchTextSnapshot();
+
+    expect(LaravelHtmlTableFacade::links())
+        ->toBeNull();
 });
 
 it('generate w/ limit', function (int $limit): void {
@@ -92,6 +99,14 @@ it('generate w/ limit', function (int $limit): void {
         fields:['id'],
         limit: $limit
     );
+
+    if($limit === 0) {
+        expect(LaravelHtmlTableFacade::links())
+            ->toBeNull();
+    } else {
+        expect(LaravelHtmlTableFacade::links())
+            ->toBeInstanceOf(View::class);
+    }
 
     expect($generated)
         ->toMatchTextSnapshot();
@@ -116,4 +131,7 @@ it('generate w/ options', function (): void {
 
     expect($generated)
         ->toMatchTextSnapshot();
+
+    expect(LaravelHtmlTableFacade::links())
+        ->toBeNull();
 });
