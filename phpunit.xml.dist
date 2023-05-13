@@ -10,7 +10,7 @@
 >
   <coverage>
     <report>
-      <html outputDirectory="./report" lowUpperBound="50" highLowerBound="80"/>
+      <html outputDirectory="build/coverage" lowUpperBound="50" highLowerBound="80"/>
     </report>
   </coverage>
   <testsuites>
