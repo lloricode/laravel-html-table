@@ -12,10 +12,10 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
 
     $rectorConfig->sets([
-        SetList::PHP_74,
+        SetList::PHP_81,
     ]);
 
-    $rectorConfig->phpVersion(PhpVersion::PHP_74);
+    $rectorConfig->phpVersion(PhpVersion::PHP_81);
 
     //    $rectorConfig->phpstanConfig(__DIR__ . '/phpstan.neon.dist');
 };

@@ -26,15 +26,11 @@ class LaravelHtmlTableGenerator extends Generator
         return $this;
     }
 
-    /**
-     * Generate a completed html table with header and data
-     *
-     * @param  array|string  $attributes
-     */
+    /** Generate a completed html table with header and data */
     public function generate(
         array $header,
         array $data = [],
-        $attributes = [],
+        array|string $attributes = [],
         ?string $caption = null
     ): string {
         $this->setCaption($caption);
@@ -45,17 +41,13 @@ class LaravelHtmlTableGenerator extends Generator
         return $this->execute($header, $data);
     }
 
-    /**
-     * Generate a completed html table with header and data
-     *
-     * @param  array|string  $attributes
-     */
+    /** Generate a completed html table with header and data */
     public function generateModel(
         array $header,
         string $model,
         array $fields,
         int $limit,
-        $attributes = [],
+        array|string $attributes = [],
         ?string $caption = null
     ): string {
         $this->setCaption($caption);

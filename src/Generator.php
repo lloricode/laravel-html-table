@@ -11,8 +11,7 @@ class Generator
 {
     protected array $tags;
 
-    /** @var array|string */
-    protected $attributes;
+    protected string|array $attributes;
 
     protected ?string $links = null;
 
@@ -71,7 +70,7 @@ class Generator
                         $bodyCellTagOpen = $bodyCellTag['open'];
                         $bodyCellTagClose = $bodyCellTag['close'];
                     } else {
-                        $bodyCellTagOpen = trim($this->tags[$alter.'body_cell'], '>').$this->attributeToString($row).'>';
+                        $bodyCellTagOpen = trim((string) $this->tags[$alter.'body_cell'], '>').$this->attributeToString($row).'>';
                     }
                 } else {
                     $data = $row;
@@ -136,12 +135,8 @@ class Generator
         return "<a href=\"$link\">$label</a>";
     }
 
-    /**
-     * Convert attributes to string format.
-     *
-     * @return array|string $param
-     */
-    private function attributeToString($param): string
+    /** Convert attributes to string format. */
+    private function attributeToString(array|string $param): string
     {
         $return = '';
         if (is_array($param)) {
@@ -154,8 +149,8 @@ class Generator
             $return = $param;
         }
 
-        return ((strlen($return) > 0) && ! empty($return))
-                        ? (' '.trim($return)) : '';
+        return ((strlen((string) $return) > 0) && ! empty($return))
+                        ? (' '.trim((string) $return)) : '';
     }
 
     /**
@@ -193,7 +188,7 @@ class Generator
     {
         $openTag = $this->tags['table'];
 
-        return rtrim($openTag, '>').$this->attributeToString($this->attributes).'>';
+        return rtrim((string) $openTag, '>').$this->attributeToString($this->attributes).'>';
     }
 
     /** Override default tags, with on existed keys on array $this->tags. */
