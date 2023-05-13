@@ -1,30 +1,26 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Lloricode\LaravelHtmlTable\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Lloricode\LaravelHtmlTable\LaravelHtmlTableGenerator;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class LaravelHtmlTableProvider extends ServiceProvider
+class LaravelHtmlTableProvider extends PackageServiceProvider
 {
-    /**
-    * Bootstrap the application services.
-    *
-    * @return void
-    */
-    public function boot()
+    public function configurePackage(Package $package): void
     {
-        //
+        $package
+            ->name('laravel-html-table');
     }
 
-    /**
-    * Register the application services.
-    *
-    * @return void
-    */
-    public function register()
+    public function packageRegistered(): void
     {
-        $this->app->singleton('lloricodelaravelhtmltable', function ($app) {
-            return new LaravelHtmlTableGenerator;
-        });
+        $this->app->singleton(
+            'lloricodelaravelhtmltable',
+            fn ($app) => new LaravelHtmlTableGenerator()
+        );
     }
 }
