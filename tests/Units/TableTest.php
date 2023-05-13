@@ -265,3 +265,17 @@ test('add attributes in cell data', function (): void {
     expect(LaravelHtmlTableFacade::generate($header, $datas, ['class' => 'table']))
         ->toMatchTextSnapshot();
 });
+
+test('add caption', function (): void {
+    $header = ['Date', 'Description', 'Amount'];
+    $datas = [
+        [
+            ['data' => '1', 'scope' => 'row'],
+            'Mark',
+            'Otto',
+        ],
+    ];
+
+    expect(LaravelHtmlTableFacade::generate($header, $datas, ['class' => 'table'], caption: 'My Table Caption'))
+        ->toMatchTextSnapshot();
+});
