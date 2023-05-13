@@ -19,7 +19,7 @@ class Generator
 
     protected ?string $caption = null;
 
-    protected ?array $optionLinks = null;
+    protected ?ModelOptionLinks $optionLinks = null;
 
     protected ?Closure $modelResultClosure = null;
 
@@ -40,7 +40,7 @@ class Generator
         }
 
         if ( ! is_null($this->optionLinks)) {
-            $output .= $this->tags['head_cell'].$this->optionLinks['headerLabel'].$this->tags['head_cell_end'];
+            $output .= $this->tags['head_cell'].$this->optionLinks->headerLabel.$this->tags['head_cell_end'];
         }
 
         return $output.$this->tags['head_row_end'].$this->tags['head_end'];
@@ -133,13 +133,13 @@ class Generator
 
     private function optionLinks(Model $model): string
     {
-        $link = route($this->optionLinks['routerName'], $model->getRouteKey());
+        $link = null;
 
-        if ( ! is_null($this->optionLinks['rowLabel'])) {
-            $label = $this->optionLinks['rowLabel'];
-        } else {
-            $label = 'View';
+        if ($this->optionLinks?->routeName !== null) {
+            $link = route($this->optionLinks->routeName, $model->getRouteKey());
         }
+
+        $label = $this->optionLinks?->rowLabel ?? 'View';
 
         return "<a href=\"$link\">$label</a>";
     }

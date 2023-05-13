@@ -20,11 +20,12 @@ class LaravelHtmlTableGenerator extends Generator
         string $headerLabel = 'Option',
         ?string $rowLabel = null
     ): self {
-        $this->optionLinks = [
-            'routerName' => $routerName,
-            'headerLabel' => $headerLabel,
-            'rowLabel' => $rowLabel,
-        ];
+
+        $this->optionLinks = new ModelOptionLinks(
+            routeName:$routerName,
+            headerLabel:$headerLabel,
+            rowLabel: $rowLabel
+        );
 
         return $this;
     }
