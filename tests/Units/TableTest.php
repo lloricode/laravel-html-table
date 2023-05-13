@@ -60,7 +60,7 @@ test('html output with attributes alt cells', function (): void {
         ->toMatchTextSnapshot();
 });
 
-test('html output with attributes array',  function (): void {
+test('html output with attributes array', function (): void {
     $test_header = [
         'col1', 'col2',
     ];
@@ -247,7 +247,7 @@ test('html output with modify default tags with open table and header cells', fu
         ->toMatchTextSnapshot();
 });
 
-test('add attributes in cell data',   function (): void {
+test('add attributes in cell data', function (): void {
     $header = ['Date', 'Description', 'Amount'];
     $datas = [
         [

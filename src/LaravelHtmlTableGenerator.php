@@ -16,8 +16,7 @@ class LaravelHtmlTableGenerator extends Generator
         string $routerName,
         string $headerLabel = 'Option',
         ?string $rowLabel = null
-    ): self
-    {
+    ): self {
         $this->optionLinks = [
             'routerName' => $routerName,
             'headerLabel' => $headerLabel,
@@ -30,7 +29,7 @@ class LaravelHtmlTableGenerator extends Generator
     /**
      * Generate a completed html table with header and data
      *
-     * @param array|string $attributes
+     * @param  array|string  $attributes
      */
     public function generate(
         array $header,
@@ -49,7 +48,7 @@ class LaravelHtmlTableGenerator extends Generator
     /**
      * Generate a completed html table with header and data
      *
-     * @param array|string $attributes
+     * @param  array|string  $attributes
      */
     public function generateModel(
         array $header,

@@ -8,7 +8,7 @@ use Rector\Set\ValueObject\SetList;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([
-        __DIR__ . '/src',
+        __DIR__.'/src',
     ]);
 
     $rectorConfig->sets([
@@ -17,5 +17,5 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->phpVersion(PhpVersion::PHP_74);
 
-//    $rectorConfig->phpstanConfig(__DIR__ . '/phpstan.neon.dist');
+    //    $rectorConfig->phpstanConfig(__DIR__ . '/phpstan.neon.dist');
 };

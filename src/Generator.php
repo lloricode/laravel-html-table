@@ -38,7 +38,7 @@ class Generator
             $output .= $this->tags['head_cell'].$row.$this->tags['head_cell_end'];
         }
 
-        if ( ! is_null($this->optionLinks)) {
+        if (! is_null($this->optionLinks)) {
             $output .= $this->tags['head_cell'].$this->optionLinks['headerLabel'].$this->tags['head_cell_end'];
         }
 
@@ -92,7 +92,7 @@ class Generator
     {
         $model = $model::select($fields);
 
-        if ( ! is_null($this->modelResultClosure)) {
+        if (! is_null($this->modelResultClosure)) {
             $c = $this->modelResultClosure;
             $model = $c($model);
         }
@@ -112,7 +112,7 @@ class Generator
                 $t[] = $m[$f];
             }
 
-            if ( ! is_null($this->optionLinks)) {
+            if (! is_null($this->optionLinks)) {
                 $t[] = $this->_optionLinks($m);
             }
 
@@ -126,7 +126,7 @@ class Generator
     {
         $link = route($this->optionLinks['routerName'], $model->getRouteKey());
 
-        if ( ! is_null($this->optionLinks['rowLabel'])) {
+        if (! is_null($this->optionLinks['rowLabel'])) {
             $label = $this->optionLinks['rowLabel'];
         } else {
             $label = 'View';
@@ -145,7 +145,7 @@ class Generator
         $return = '';
         if (is_array($param)) {
             foreach ($param as $key => $value) {
-                if ( ! array_key_exists($key, $this->tags)) {
+                if (! array_key_exists($key, $this->tags)) {
                     $return .= $this->_attributeToString("$key=\"$value\"");
                 }
             }
@@ -160,18 +160,17 @@ class Generator
     /**
      * Start Generating table with data.
      *
-     * @param array|string|null $model_or_array
+     * @param  array|string|null  $model_or_array
      */
     protected function execute(
         array $header,
         $model_or_array,
         ?int $limit = null,
         ?array $fields = null
-    ): string
-    {
+    ): string {
         $output = $this->generateOpenTag();
 
-        if ( ! is_null($this->caption)) {
+        if (! is_null($this->caption)) {
             $output .= "<caption>{$this->caption}</caption>";
         }
 
@@ -185,7 +184,7 @@ class Generator
         $this->_resetDefaultTags();
         $this->optionLinks = null;
 
-        return $output . $this->tags['table_end'];
+        return $output.$this->tags['table_end'];
     }
 
     /** Generate a open tag for <table> with attribute specified */
@@ -193,7 +192,7 @@ class Generator
     {
         $openTag = $this->tags['table'];
 
-        return rtrim($openTag, '>'). $this->_attributeToString($this->attributes).'>';
+        return rtrim($openTag, '>').$this->_attributeToString($this->attributes).'>';
     }
 
     /** Override default tags, with on existed keys on array $this->tags. */
