@@ -12,19 +12,13 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
         php: [8.2, 8.1]
-        laravel: [^10.0.0, ^9.51.0, ^8.83.27]
+        laravel: [^10.0.0]
         stability: [prefer-lowest, prefer-stable]
         include:
           - laravel: ^10.0.0
             testbench: ^8.0
-            carbon: ^2.63
-          - laravel: ^9.51.0
-            testbench: ^7.22.0
-            carbon: ^2.63
-          - laravel: ^8.83.27
-            testbench: ^6.25.1
             carbon: ^2.63
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
