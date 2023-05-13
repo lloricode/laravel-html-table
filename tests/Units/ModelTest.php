@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Lloricode\LaravelHtmlTable\Facades\LaravelHtmlTableFacade;
@@ -47,3 +48,50 @@ it('generate model', function (): void {
     expect($generated)
         ->toMatchTextSnapshot();
 });
+
+it('generate with modified query', function (): void {
+    TestModel::create([
+        'name' => 'Orchestra',
+        'email' => 'hello@orchestraplatform.com',
+    ]);
+    TestModel::create([
+        'name' => 'Lloric',
+        'email' => 'lloricode@gmail.com',
+    ]);
+
+    $generated = LaravelHtmlTableFacade::modelResult(
+        function (Builder $query) {
+            return $query->where('name', 'Lloric');
+        }
+    )
+        ->generateModel(
+            header: ['Id', 'Name', 'Email'],
+            model: TestModel::class,
+            fields:['id', 'name', 'email'],
+            limit: 0
+        );
+
+    expect($generated)
+        ->toMatchTextSnapshot();
+});
+
+it('generate w/ limit', function (int $limit): void {
+    TestModel::create([
+        'name' => 'Orchestra',
+        'email' => 'hello@orchestraplatform.com',
+    ]);
+    TestModel::create([
+        'name' => 'Lloric',
+        'email' => 'lloricode@gmail.com',
+    ]);
+
+    $generated = LaravelHtmlTableFacade::generateModel(
+        header: ['Id'],
+        model: TestModel::class,
+        fields:['id'],
+        limit: $limit
+    );
+
+    expect($generated)
+        ->toMatchTextSnapshot();
+})->with([0, 1]);
