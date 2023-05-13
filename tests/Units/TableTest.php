@@ -274,3 +274,18 @@ test('add caption', function (): void {
     ))
         ->toMatchTextSnapshot();
 });
+
+test('add body_celltags override', function (): void {
+    expect(LaravelHtmlTableFacade::generate(
+        header: ['Header'],
+        data: [
+            [
+                [
+                    'data' => 'row data',
+                    'body_celltags' => ['open' => '<td id="testid">', 'close' => '</td test close>'],
+                ],
+            ],
+        ],
+    ))
+        ->toMatchTextSnapshot();
+});
