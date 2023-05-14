@@ -139,14 +139,17 @@ class Generator
             $link = route($this->optionLinks->routeName, $model->getRouteKey());
         }
 
-        $label = $this->optionLinks?->rowLabel ?? 'View';
+        $label = $this->optionLinks?->rowLabel ?? trans('View');
 
         return "<a href=\"$link\">$label</a>";
     }
 
-    /** Convert attributes to string format. */
-    private function attributeToString(array|string $param): string
+    private function attributeToString(array|string|TableTags $param): string
     {
+        if ($param instanceof TableTags) {
+            return '';
+        }
+
         $return = '';
         if (is_array($param)) {
             foreach ($param as $key => $value) {

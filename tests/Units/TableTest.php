@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Lloricode\LaravelHtmlTable\Facades\LaravelHtmlTableFacade;
+use Lloricode\LaravelHtmlTable\TableTags;
 
 test('html output with no attributes', function (): void {
     $test_header = [
@@ -286,6 +287,32 @@ test('add body_celltags override', function (): void {
                 ],
             ],
         ],
+    ))
+        ->toMatchTextSnapshot();
+});
+
+test('can use DTO as custom tags w/out modify DTO', function (): void {
+    expect(LaravelHtmlTableFacade::generate(
+        header: ['Header'],
+        data: [
+            [
+                'Row',
+            ],
+        ],
+        customTags: new TableTags(),
+    ))
+        ->toMatchTextSnapshot();
+});
+
+test('can use DTO as custom tags w/ modify DTO', function (): void {
+    expect(LaravelHtmlTableFacade::generate(
+        header: ['Header'],
+        data: [
+            [
+                'Row',
+            ],
+        ],
+        customTags: new TableTags(table: '<table border="1">'),
     ))
         ->toMatchTextSnapshot();
 });
