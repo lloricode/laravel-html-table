@@ -37,6 +37,16 @@ class TableTags
     ) {
     }
 
+    public function getBodyRow(bool $alt = false): string
+    {
+        return $alt ? $this->alt_body_row : $this->body_row;
+    }
+
+    public function getBodyCell(bool $alt = false): string
+    {
+        return $alt ? $this->alt_body_cell : $this->body_cell;
+    }
+
     public function properties(): array
     {
         $properties = [];

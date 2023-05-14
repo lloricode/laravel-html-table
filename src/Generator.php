@@ -13,7 +13,7 @@ class Generator
 {
     protected TableTags $tags;
 
-    protected string|array $attributes;
+    private string|array|TableTags $customTags;
 
     protected ?Htmlable $links = null;
 
@@ -25,7 +25,7 @@ class Generator
 
     public function __construct()
     {
-        $this->resetDefaultTags();
+        $this->reset();
     }
 
     /** Generate Html Header with value. */
@@ -56,11 +56,10 @@ class Generator
     {
         $output = $this->tags->body;
 
-        $alt = 0;
-        foreach ($data as $row1) {
-            $alter = ($alt % 2 === 0) ? '' : 'alt_';
+        foreach ($data as $alt => $row1) {
+            $alter = ! ($alt % 2 === 0);
 
-            $output .= $this->tags->{$alter . 'body_row'};
+            $output .= $this->tags->getBodyRow($alter);
             foreach ($row1 as $row) {
                 $bodyCellTagClose = $this->tags->body_cell_end;
                 if (is_array($row) && array_key_exists('data', $row)) {
@@ -72,18 +71,19 @@ class Generator
                         $bodyCellTagOpen = $bodyCellTag['open'];
                         $bodyCellTagClose = $bodyCellTag['close'];
                     } else {
-                        $bodyCellTagOpen = trim((string) $this->tags->{$alter . 'body_cell'}, '>').$this->attributeToString($row).'>';
+                        $bodyCellTagOpen = trim($this->tags->getBodyCell($alter), '>').
+                            $this->attributeToString($row).
+                            '>';
                     }
                 } else {
                     $data = $row;
-                    $bodyCellTagOpen = $this->tags->{$alter . 'body_cell'};
+                    $bodyCellTagOpen = $this->tags->getBodyCell($alter);
                 }
 
                 $output .= $bodyCellTagOpen.$data.$bodyCellTagClose;
             }
             $output .= $this->tags->body_row_end;
 
-            $alt++;
         }
 
         return $output.$this->tags->body_end;
@@ -150,16 +150,15 @@ class Generator
         $return = '';
         if (is_array($param)) {
             foreach ($param as $key => $value) {
-                if ( ! property_exists($this->tags, $key)) {
-                    $return .= $this->attributeToString("$key=\"$value\"");
+                if ( ! property_exists($this->tags, (string) $key)) {
+                    $return .= "$key=\"$value\"";
                 }
             }
         } else {
             $return = $param;
         }
 
-        return ((strlen((string) $return) > 0) && ! empty($return))
-                        ? (' '.trim((string) $return)) : '';
+        return filled($return) ? (' '.trim($return)) : '';
     }
 
     /**
@@ -186,8 +185,7 @@ class Generator
             $output .= $this->rowsDataWithModel($modelOrArray::query(), $fields, $limit);
         }
 
-        $this->resetDefaultTags();
-        $this->optionLinks = null;
+        $this->reset();
 
         return $output.$this->tags->table_end;
     }
@@ -197,32 +195,36 @@ class Generator
     {
         $openTag = $this->tags->table;
 
-        return rtrim($openTag, '>').$this->attributeToString($this->attributes).'>';
+        return rtrim($openTag, '>').$this->attributeToString($this->customTags).'>';
     }
 
     /** Override default tags, with on existed keys on array $this->tags. */
-    protected function checkTagsFromAttributes(): void
+    protected function applyCustomTags(string|array|TableTags $customTags): void
     {
-        if (is_array($this->attributes)) {
+        $this->customTags = $customTags;
+
+        if (is_array($this->customTags) && filled($this->customTags)) {
             // Get all keys
             $newAttributes = [];
             foreach ($this->tags->properties() as $key) {
                 // if default key exist in attribute given by user,
                 // replace the value from default key.
-                if (array_key_exists($key, $this->attributes)) {
-                    $newAttributes[$key] = $this->attributes[$key];
-                    unset($this->attributes[$key]);
+                if (array_key_exists($key, $this->customTags)) {
+                    $newAttributes[$key] = $this->customTags[$key];
+                    unset($this->customTags[$key]);
                 }
             }
             if (filled($newAttributes)) {
                 $this->tags = new TableTags(...$newAttributes);
             }
+        } elseif($this->customTags instanceof TableTags) {
+            $this->tags = $this->customTags;
         }
     }
 
-    /** Reset Tags */
-    private function resetDefaultTags(): void
+    private function reset(): void
     {
         $this->tags = new TableTags();
+        $this->optionLinks = null;
     }
 }

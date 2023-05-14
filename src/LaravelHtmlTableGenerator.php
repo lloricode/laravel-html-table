@@ -34,13 +34,12 @@ class LaravelHtmlTableGenerator extends Generator
     public function generate(
         array $header,
         array $data = [],
-        array|string $attributes = [],
+        array|string|TableTags $customTags = [],
         ?string $caption = null
     ): string {
         $this->setCaption($caption);
 
-        $this->attributes = $attributes;
-        $this->checkTagsFromAttributes();
+        $this->applyCustomTags($customTags);
 
         return $this->execute($header, $data);
     }
@@ -53,13 +52,12 @@ class LaravelHtmlTableGenerator extends Generator
         string $model,
         array $fields,
         int $limit,
-        array|string $attributes = [],
+        array|string|TableTags $customTags = [],
         ?string $caption = null
     ): string {
         $this->setCaption($caption);
 
-        $this->attributes = $attributes;
-        $this->checkTagsFromAttributes();
+        $this->applyCustomTags($customTags);
 
         return $this->execute($header, $model, $limit, $fields);
     }
