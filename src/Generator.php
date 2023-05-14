@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Generator
 {
-    protected array $tags;
+    protected TableTags $tags;
 
     protected string|array $attributes;
 
@@ -31,19 +31,19 @@ class Generator
     /** Generate Html Header with value. */
     private function header(array $header): string
     {
-        $output = $this->tags['head'];
+        $output = $this->tags->head;
 
-        $output .= $this->tags['head_row'];
+        $output .= $this->tags->head_row;
 
         foreach ($header as $row) {
-            $output .= $this->tags['head_cell'].$row.$this->tags['head_cell_end'];
+            $output .= $this->tags->head_cell.$row.$this->tags->head_cell_end;
         }
 
         if ( ! is_null($this->optionLinks)) {
-            $output .= $this->tags['head_cell'].$this->optionLinks->headerLabel.$this->tags['head_cell_end'];
+            $output .= $this->tags->head_cell.$this->optionLinks->headerLabel.$this->tags->head_cell_end;
         }
 
-        return $output.$this->tags['head_row_end'].$this->tags['head_end'];
+        return $output.$this->tags->head_row_end.$this->tags->head_end;
     }
 
     protected function setCaption(?string $caption): void
@@ -54,15 +54,15 @@ class Generator
     /** Generate Rows with data. */
     private function rowsData(array $data): string
     {
-        $output = $this->tags['body'];
+        $output = $this->tags->body;
 
         $alt = 0;
         foreach ($data as $row1) {
             $alter = ($alt % 2 === 0) ? '' : 'alt_';
 
-            $output .= $this->tags[$alter.'body_row'];
+            $output .= $this->tags->{$alter . 'body_row'};
             foreach ($row1 as $row) {
-                $bodyCellTagClose = $this->tags['body_cell_end'];
+                $bodyCellTagClose = $this->tags->body_cell_end;
                 if (is_array($row) && array_key_exists('data', $row)) {
                     $data = $row['data'];
                     unset($row['data']);
@@ -72,21 +72,21 @@ class Generator
                         $bodyCellTagOpen = $bodyCellTag['open'];
                         $bodyCellTagClose = $bodyCellTag['close'];
                     } else {
-                        $bodyCellTagOpen = trim((string) $this->tags[$alter.'body_cell'], '>').$this->attributeToString($row).'>';
+                        $bodyCellTagOpen = trim((string) $this->tags->{$alter . 'body_cell'}, '>').$this->attributeToString($row).'>';
                     }
                 } else {
                     $data = $row;
-                    $bodyCellTagOpen = $this->tags[$alter.'body_cell'];
+                    $bodyCellTagOpen = $this->tags->{$alter . 'body_cell'};
                 }
 
                 $output .= $bodyCellTagOpen.$data.$bodyCellTagClose;
             }
-            $output .= $this->tags['body_row_end'];
+            $output .= $this->tags->body_row_end;
 
             $alt++;
         }
 
-        return $output.$this->tags['body_end'];
+        return $output.$this->tags->body_end;
     }
 
     private function rowsDataWithModel(Builder $query, array $fields, int $limit): string
@@ -150,7 +150,7 @@ class Generator
         $return = '';
         if (is_array($param)) {
             foreach ($param as $key => $value) {
-                if ( ! array_key_exists($key, $this->tags)) {
+                if ( ! property_exists($this->tags, $key)) {
                     $return .= $this->attributeToString("$key=\"$value\"");
                 }
             }
@@ -189,15 +189,15 @@ class Generator
         $this->resetDefaultTags();
         $this->optionLinks = null;
 
-        return $output.$this->tags['table_end'];
+        return $output.$this->tags->table_end;
     }
 
     /** Generate an open tag for <table> with attribute specified */
     protected function generateOpenTag(): string
     {
-        $openTag = $this->tags['table'];
+        $openTag = $this->tags->table;
 
-        return rtrim((string) $openTag, '>').$this->attributeToString($this->attributes).'>';
+        return rtrim($openTag, '>').$this->attributeToString($this->attributes).'>';
     }
 
     /** Override default tags, with on existed keys on array $this->tags. */
@@ -205,13 +205,17 @@ class Generator
     {
         if (is_array($this->attributes)) {
             // Get all keys
-            foreach (array_keys($this->tags) as $key) {
+            $newAttributes = [];
+            foreach ($this->tags->properties() as $key) {
                 // if default key exist in attribute given by user,
                 // replace the value from default key.
                 if (array_key_exists($key, $this->attributes)) {
-                    $this->tags[$key] = $this->attributes[$key];
+                    $newAttributes[$key] = $this->attributes[$key];
                     unset($this->attributes[$key]);
                 }
+            }
+            if (filled($newAttributes)) {
+                $this->tags = new TableTags(...$newAttributes);
             }
         }
     }
@@ -219,40 +223,6 @@ class Generator
     /** Reset Tags */
     private function resetDefaultTags(): void
     {
-        $this->tags = $this->getDefaultTags();
-    }
-
-    /** Default html table tags. */
-    private function getDefaultTags(): array
-    {
-        return [
-            // Main Table
-            'table' => '<table>',
-            'table_end' => '</table>',
-
-            // Head
-            'head' => '<thead>',
-            'head_end' => '</thead>',
-
-            'head_row' => '<tr>',
-            'head_row_end' => '</tr>',
-            'head_cell' => '<th>',
-            'head_cell_end' => '</th>',
-
-            // Data body
-            'body' => '<tbody>',
-            'body_end' => '</tbody>',
-
-            'body_row' => '<tr>',
-            'body_row_end' => '</tr>',
-            'body_cell' => '<td>',
-            'body_cell_end' => '</td>',
-
-            // Alternative
-            'alt_body_row' => '<tr>',
-            'alt_body_row_end' => '</tr>',
-            'alt_body_cell' => '<td>',
-            'alt_body_cell_end' => '</td>',
-        ];
+        $this->tags = new TableTags();
     }
 }
