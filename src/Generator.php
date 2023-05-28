@@ -36,7 +36,26 @@ class Generator
         $output .= $this->tags->head_row;
 
         foreach ($header as $row) {
-            $output .= $this->tags->head_cell.$row.$this->tags->head_cell_end;
+
+            $close = $this->tags->head_cell_end;
+            if (is_array($row) && array_key_exists('data', $row)) {
+                $data = $row['data'];
+                unset($row['data']);
+
+                if (isset($row['header_celltags'])) {
+                    $open = $row['header_celltags']['open'];
+                    $close = $row['header_celltags']['close'];
+                } else {
+                    $open = trim($this->tags->head_cell, '>').
+                        $this->attributeToString($row).
+                        '>';
+                }
+            } else {
+                $data = $row;
+                $open = $this->tags->head_cell;
+            }
+
+            $output .= $open.$data.$close;
         }
 
         if ( ! is_null($this->optionLinks)) {
@@ -67,9 +86,8 @@ class Generator
                     unset($row['data']);
 
                     if (isset($row['body_celltags'])) {
-                        $bodyCellTag = $row['body_celltags'];
-                        $bodyCellTagOpen = $bodyCellTag['open'];
-                        $bodyCellTagClose = $bodyCellTag['close'];
+                        $bodyCellTagOpen = $row['body_celltags']['open'];
+                        $bodyCellTagClose = $row['body_celltags']['close'];
                     } else {
                         $bodyCellTagOpen = trim($this->tags->getBodyCell($alter), '>').
                             $this->attributeToString($row).

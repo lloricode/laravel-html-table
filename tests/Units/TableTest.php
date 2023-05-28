@@ -267,6 +267,18 @@ test('add attributes in cell data', function (): void {
         ->toMatchTextSnapshot();
 });
 
+test('add attributes in header', function (): void {
+    $header = [['data' => 'Header', 'scope' => 'test']];
+    $datas = [
+        [
+            'Value',
+        ],
+    ];
+
+    expect(LaravelHtmlTableFacade::generate($header, $datas))
+        ->toMatchTextSnapshot();
+});
+
 test('add caption', function (): void {
     expect(LaravelHtmlTableFacade::generate(
         header: ['Header'],
@@ -285,6 +297,23 @@ test('add body_celltags override', function (): void {
                     'data' => 'row data',
                     'body_celltags' => ['open' => '<td id="testid">', 'close' => '</td test close>'],
                 ],
+            ],
+        ],
+    ))
+        ->toMatchTextSnapshot();
+});
+
+test('add header_celltags override', function (): void {
+    expect(LaravelHtmlTableFacade::generate(
+        header: [
+            [
+                'data' => 'Header',
+                'header_celltags' => ['open' => '<thead id="test-head">', 'close' => '</thead id="test-head-close">'],
+            ],
+        ],
+        data: [
+            [
+                'row data',
             ],
         ],
     ))
