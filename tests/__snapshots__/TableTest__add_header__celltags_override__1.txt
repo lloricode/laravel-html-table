@@ -1,0 +1,1 @@
+<table><thead><tr><thead id="test-head">Header</thead id="test-head-close"></tr></thead><tbody><tr><td>row data</td></tr></tbody></table>
