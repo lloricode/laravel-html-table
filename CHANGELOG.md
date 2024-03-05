@@ -2,7 +2,13 @@
 
 All notable changes to `laravel-html-table` will be documented in this file
 
-## [Unreleased](https://github.com/lloricode/laravel-html-table/compare/v2.1.0...develop)
+## [Unreleased](https://github.com/lloricode/laravel-html-table/compare/v2.1.1...develop)
+
+## [v2.1.1 2024-03-05](https://github.com/lloricode/laravel-html-table/compare/v2.1.0...v2.1.1)
+
+### What's Changed
+
+- Add support for laravel 11
 
 ## [v2.1.0 2023-05-28](https://github.com/lloricode/laravel-html-table/compare/v2.0.0...v2.1.0)
 
