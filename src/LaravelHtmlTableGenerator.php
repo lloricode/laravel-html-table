@@ -22,8 +22,8 @@ class LaravelHtmlTableGenerator extends Generator
     ): self {
 
         $this->optionLinks = new ModelOptionLinks(
-            routeName:$routerName,
-            headerLabel:$headerLabel,
+            routeName: $routerName,
+            headerLabel: $headerLabel,
             rowLabel: $rowLabel
         );
 
@@ -45,7 +45,7 @@ class LaravelHtmlTableGenerator extends Generator
     }
 
     /** Generate a completed html table with header and data
-     * @param class-string<\Illuminate\Database\Eloquent\Model> $model
+     * @param  class-string<\Illuminate\Database\Eloquent\Model>  $model
      */
     public function generateModel(
         array $header,

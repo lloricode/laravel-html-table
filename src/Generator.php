@@ -58,7 +58,7 @@ class Generator
             $output .= $open.$data.$close;
         }
 
-        if ( ! is_null($this->optionLinks)) {
+        if (! is_null($this->optionLinks)) {
             $output .= $this->tags->head_cell.$this->optionLinks->headerLabel.$this->tags->head_cell_end;
         }
 
@@ -139,7 +139,7 @@ class Generator
                 $attributes[] = $m->getAttribute($f);
             }
 
-            if ( ! is_null($this->optionLinks)) {
+            if (! is_null($this->optionLinks)) {
                 $attributes[] = $this->optionLinks($m);
             }
 
@@ -171,7 +171,7 @@ class Generator
         $return = '';
         if (is_array($param)) {
             foreach ($param as $key => $value) {
-                if ( ! property_exists($this->tags, (string) $key)) {
+                if (! property_exists($this->tags, (string) $key)) {
                     $return .= "$key=\"$value\"";
                 }
             }
@@ -195,7 +195,7 @@ class Generator
     ): string {
         $output = $this->generateOpenTag();
 
-        if ( ! is_null($this->caption)) {
+        if (! is_null($this->caption)) {
             $output .= "<caption>$this->caption</caption>";
         }
 
@@ -238,7 +238,7 @@ class Generator
             if (filled($newAttributes)) {
                 $this->tags = new TableTags(...$newAttributes);
             }
-        } elseif($this->customTags instanceof TableTags) {
+        } elseif ($this->customTags instanceof TableTags) {
             $this->tags = $this->customTags;
         }
     }
