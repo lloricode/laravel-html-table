@@ -24,7 +24,7 @@
         "spatie/pest-plugin-snapshots": "^2.1.0",
         "laravel/pint": "^1.14",
         "phpstan/phpstan": "^1.10.59",
-        "nunomaduro/larastan": "^2.9.2"
+        "larastan/larastan": "^2.9.2"
     },
     "autoload": {
         "psr-4": {
