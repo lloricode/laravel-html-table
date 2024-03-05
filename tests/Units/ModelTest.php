@@ -72,7 +72,7 @@ it('generate with modified query', function (): void {
         ->generateModel(
             header: ['Id', 'Name', 'Email'],
             model: TestModel::class,
-            fields:['id', 'name', 'email'],
+            fields: ['id', 'name', 'email'],
             limit: 0
         );
 
@@ -96,11 +96,11 @@ it('generate w/ limit', function (int $limit): void {
     $generated = LaravelHtmlTableFacade::generateModel(
         header: ['Id'],
         model: TestModel::class,
-        fields:['id'],
+        fields: ['id'],
         limit: $limit
     );
 
-    if($limit === 0) {
+    if ($limit === 0) {
         expect(LaravelHtmlTableFacade::links())
             ->toBeNull();
     } else {
@@ -125,7 +125,7 @@ it('generate w/ options', function (): void {
         ->generateModel(
             header: ['name'],
             model: TestModel::class,
-            fields:['name'],
+            fields: ['name'],
             limit: 0
         );
 
