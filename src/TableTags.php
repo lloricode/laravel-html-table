@@ -34,8 +34,7 @@ class TableTags
         public readonly string $alt_body_row_end = '</tr>',
         public readonly string $alt_body_cell = '<td>',
         public readonly string $alt_body_cell_end = '</td>',
-    ) {
-    }
+    ) {}
 
     public function getBodyRow(bool $alt = false): string
     {

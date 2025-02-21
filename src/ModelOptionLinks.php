@@ -10,6 +10,5 @@ class ModelOptionLinks
         public readonly string $routeName,
         public readonly string $headerLabel = 'Options',
         public readonly ?string $rowLabel = null,
-    ) {
-    }
+    ) {}
 }

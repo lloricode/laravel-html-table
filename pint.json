@@ -9,6 +9,8 @@
   ],
   "rules": {
     "declare_strict_types": true,
-    "single_trait_insert_per_statement": true
+    "single_trait_insert_per_statement": true,
+    "strict_comparison":  true,
+    "strict_param":  true
   }
 }

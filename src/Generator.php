@@ -107,6 +107,9 @@ class Generator
         return $output.$this->tags->body_end;
     }
 
+    /**
+     * @param  Builder<Model>  $query
+     */
     private function rowsDataWithModel(Builder $query, array $fields, int $limit): string
     {
         $query
@@ -157,7 +160,7 @@ class Generator
             $link = route($this->optionLinks->routeName, $model->getRouteKey());
         }
 
-        $label = $this->optionLinks?->rowLabel ?? trans('View');
+        $label = $this->optionLinks->rowLabel ?? trans('View');
 
         return "<a href=\"$link\">$label</a>";
     }
@@ -245,7 +248,7 @@ class Generator
 
     private function reset(): void
     {
-        $this->tags = new TableTags();
+        $this->tags = new TableTags;
         $this->optionLinks = null;
     }
 }

@@ -20,7 +20,7 @@ class LaravelHtmlTableProvider extends PackageServiceProvider
     {
         $this->app->singleton(
             'lloricodelaravelhtmltable',
-            fn ($app) => new LaravelHtmlTableGenerator()
+            fn ($app) => new LaravelHtmlTableGenerator
         );
     }
 }

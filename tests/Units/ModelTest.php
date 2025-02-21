@@ -20,7 +20,7 @@ beforeEach(function (): void {
     DB::connection()
         ->getSchemaBuilder()
         ->create(
-            (new TestModel())->getTable(),
+            (new TestModel)->getTable(),
             function (Blueprint $table): void {
                 $table->increments('id');
                 $table->string('name');
@@ -65,9 +65,7 @@ it('generate with modified query', function (): void {
     ]);
 
     $generated = LaravelHtmlTableFacade::modelResult(
-        function (Builder $query) {
-            return $query->where('name', 'Lloric');
-        }
+        fn (Builder $query) => $query->where('name', 'Lloric')
     )
         ->generateModel(
             header: ['Id', 'Name', 'Email'],

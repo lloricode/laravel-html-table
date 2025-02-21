@@ -328,7 +328,7 @@ test('can use DTO as custom tags w/out modify DTO', function (): void {
                 'Row',
             ],
         ],
-        customTags: new TableTags(),
+        customTags: new TableTags,
     ))
         ->toMatchTextSnapshot();
 });

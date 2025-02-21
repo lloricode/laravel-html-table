@@ -1,13 +1,15 @@
 includes:
-    - ./vendor/larastan/larastan/extension.neon
+
 parameters:
     level: 8
     paths:
         - src
 
-    ignoreErrors:
-
     tmpDir: build/phpstan
-    checkMissingIterableValueType: false
-    # larastan
-    checkGenericClassInNonGenericObjectType: false
+
+    ignoreErrors:
+        - identifier: missingType.iterableValue
+
+    errorFormat: ticketswap
+    editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
+
